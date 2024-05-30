@@ -1,0 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.font-urbanist {
+  font-family: "Urbanist", sans-serif;
+}
+
+body {
+  background-color: #eff0f3;
+}
+@layer components {
+  /* login */
+  .loginInput {
+    @apply mx-auto border-white border rounded-md bg-transparent pl-2 placeholder-custom tracking-wider py-2;
+  }
+  /* nav */
+  .nav_item {
+    @apply transition-transform w-fit text-gray-400;
+  }
+  .nav_item:hover {
+    @apply text-black  max-md:translate-x-[.5em] md:translate-y-[-.25em];
+  }
+  .active {
+    @apply text-black max-md:translate-x-[.55em] md:translate-y-[-.25em];
+  }
+  .active hr {
+    @apply w-2/3;
+  }
+  .active span {
+    @apply block md:hidden absolute w-2 h-2 top-2 left-[-15px] rounded-full bg-green-600;
+  }
+  .nav_underline {
+    @apply w-0 mx-auto h-[0.2em] transition-all bg-green-600;
+  }
+
+  /* slide-Meu */
+  .slide-menu {
+    @apply fixed top-0 transition-transform duration-300 ease-out translate-x-24  w-[260px] h-[350px] rounded-bl-3xl bg-white p-7;
+  }
+  /* burger */
+  :root {
+    --bar-width: 20px;
+    --bar-height: 3px;
+    --burger-gap: 2pt;
+    --timing: 0.3s ease;
+    --burger-height: calc((var(--bar-height) * 3) + var(--burger-gap) * 2);
+  }
+
+  .open-button input,
+  .open-button::before,
+  .open-button::after {
+    content: "";
+    width: var(--bar-width);
+    transition: all var(--timing);
+    @apply relative bg-[black] rounded-full;
+  }
+
+  .open-button input {
+    appearance: none;
+    height:  calc((var(--bar-height)) - 1px);
+    @apply p-0 m-0;
+  }
+
+  .open-button::before {
+    height: calc((var(--bar-height)) - 2px);
+  }
+
+  .open-button::after {
+    height: var(--bar-height); 
+  }
+  .open-button {
+    gap: var(--burger-gap);
+    shape-rendering: crispEdges;
+    @apply relative bottom-[6px] flex flex-col justify-center items-center cursor-pointer rounded-full p-0 w-10 h-10 bg-[#eef0f2];
+  }
+
+  .open-button input:checked {
+    opacity: 0%;
+    height: 0px;
+  }
+
+  .open-button:has(input:checked)::before {
+    height: var(--bar-height);
+    rotate: 45deg;
+    translate: 0 5px;
+  }
+
+  .open-button:has(input:checked)::after {
+    height: var(--bar-height);
+    rotate: -45deg;
+    translate: 0 -4px;
+  }
+}
+
+/* Login page */
+
+.placeholder-text-sm::placeholder {
+  font-size: 0.875rem;
+}
+.placeholder-custom::placeholder {
+  @apply text-[10pt] font-extralight text-white; /* Apply Tailwind utilities */
+}
+
+.bg-image {
+  background-image: url("/images/322471-gorgerous-school-background-2500x1667-for-android-50.jpg");
+  @apply fixed w-full min-h-[100dvh] bg-center bg-cover z-[-1];
+}
+.bg-image::before {
+  content: "";
+  @apply absolute top-0 left-0 w-full h-full bg-[#002a28] opacity-[0.9];
+}
