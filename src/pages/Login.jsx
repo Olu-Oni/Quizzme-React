@@ -7,25 +7,25 @@ const LoginForm = () => {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <div className="mt-5 mx-auto">
+      <div className="flex flex-col mt-5 mx-auto">
         <input
           name="email"
           type="text"
           placeholder="Enter your email"
-          className=" w-[300px] lg:w-[400px] loginInput mb-5"
+          className=" w-[250px] md:w-[300px] lg:w-[400px] loginInput mb-5"
         />
         <input
           name="password"
           type="password"
           placeholder="Enter your password"
-          className=" w-[300px] lg:w-[400px] loginInput font-bold"
+          className="w-[250px] md:w-[300px] lg:w-[400px] loginInput font-bold"
         />
       </div>
 
       <button
         type="submit"
         id="login-button"
-        className="hover:cursor-pointer transition-all duration-300 w-64 h-10 hover:text-[#f8C660] hover:bg-white bg-[#f8C660] text-center mt-6 rounded-xl  mx-auto text-[10pt] md:text-[13pt] py-1"
+        className="hover:cursor-pointer transition-all duration-300 w-56 sm:w-64 h-10 hover:text-[#f8C660] hover:bg-white bg-[#f8C660] text-center mt-6 rounded-xl  mx-auto text-[10pt] md:text-[13pt] py-1"
       >
         Login
       </button>
@@ -35,7 +35,7 @@ const LoginForm = () => {
 
 const Login = () => {
   return (
-    <div className="font-urbanist lg:10 text-white text-center content-center overflow-auto">
+    <div className="font-urbanist bold lg:10 text-white text-center content-center overflow-auto">
       <div className="bg-image "></div>
 
       <div className="">
@@ -59,9 +59,9 @@ const Login = () => {
         {/* Other login options */}
         <div className="mt-4">
           <div className="block">
-            <hr className="inline-block w-[20%] h-px bg-white mb-[5px] mx-10" />
+            <hr className="inline-block w-[20%] h-px bg-white mb-[5px] mx-3 sm:mx-10" />
             <p className="inline text-[9pt]">Login with</p>
-            <hr className="inline-block w-[20%] h-px mb-[5px] bg-white mx-10" />
+            <hr className="inline-block w-[20%] h-px mb-[5px] bg-white mx-3 sm:mx-10" />
           </div>
           <a className=" hover:cursor-pointer mt-5 h-[40px] inline-block border border-white  py-1 px-10 rounded-md">
             <img

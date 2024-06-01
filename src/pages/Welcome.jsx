@@ -2,11 +2,11 @@ import loginLogo from '../../images/login-logo-orange.png'
 
 const Welcome = () => {
   return (
-    <div className="font-urbanist lg:10 text-white text-center content-center overflow-auto">
+    <div className="font-urbanist bold lg:10 text-white text-center content-center overflow-auto">
       <div className="bg-image "></div>
 
       <div className="pt-20 md:mb-32 md:mt-20">
-        <img src={loginLogo} className="w-[200px] mx-auto mb-24" />
+        <img src={loginLogo} className="md:w-[300px] w-[180px] mx-auto mb-24" />
       </div>
 
       <div className="mx-auto hover:cursor-pointer">

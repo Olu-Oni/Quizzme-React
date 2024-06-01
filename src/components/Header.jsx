@@ -76,8 +76,9 @@ const NavBar = () => {
             <NavItem key={name} name={name} />
           ))}
         </ul>
-        <hr className="h-[0.05em] bg-green-600 border-none" />
+        
       </div>
+      <hr className="h-[0.05em] bg-green-600 border-none" />
       <SlideMenu navNames={navNames}/>
     </nav>
   );
@@ -85,7 +86,7 @@ const NavBar = () => {
 
 const Header = () => {
   return (
-    <header className="flex-col mx-14 my-7 flex-grow">
+    <header className="flex-col  my-7 flex-grow">
       <TopBar />
       <NavBar />
     </header>

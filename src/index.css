@@ -4,9 +4,16 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+  transition: all .1s ease;
+}
 
 .font-urbanist {
   font-family: "Urbanist", sans-serif;
+ 
+}
+.bold{
+   font-weight: 600;
 }
 
 body {
