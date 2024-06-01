@@ -1,8 +1,53 @@
-# React + Vite
+App plans
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+```mermaid
+stateDiagram
+    User --> Login
+    User --> Register
 
-Currently, two official plugins are available:
+    Login --> Dashboard
+    Register --> Dashboard
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+    state Dashboard {
+        [*] --> QuizManagement
+        [*] --> PerformanceTracking
+        [*] --> UserProfile
+
+        state QuizManagement {
+        
+        [*] --> ViewQuiz
+        
+        state ViewQuiz{
+        [*] --> CreateQuiz
+        [*] --> EditQuiz
+        [*] --> DeleteQuiz
+        
+        CreateQuiz --> AddQuestions
+        AddQuestions --> SaveQuiz
+
+        EditQuiz --> ModifyQuestions 
+        ModifyQuestions --> SaveQuiz
+        } 
+
+        }
+
+        PerformanceTracking --> ViewPerformance
+       
+        UserProfile --> ViewProfile
+        UserProfile --> EditProfile
+        UserProfile --> Logout
+    }
+
+    CreateQuiz --> Dashboard
+    EditQuiz --> Dashboard
+    DeleteQuiz --> Dashboard
+    ViewQuiz --> Dashboard
+
+    ViewProfile --> Dashboard
+    EditProfile --> Dashboard
+    Logout --> Login
+
+    ViewPerformance --> Dashboard
+    
+
+````
