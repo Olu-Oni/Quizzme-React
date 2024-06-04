@@ -12,7 +12,7 @@ import Welcome from './pages/Welcome'
 const App = () => {
 
   return (
-    <div>
+    <div className='font-urbanist max-sm:text-lg'>
       <BrowserRouter>
         <Routes>
           <Route index element={<Welcome/>} />

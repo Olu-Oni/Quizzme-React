@@ -35,14 +35,14 @@ const LoginForm = () => {
 
 const Login = () => {
   return (
-    <div className="font-urbanist bold lg:10 text-white text-center content-center overflow-auto">
-      <div className="bg-image "></div>
+    <div className="bold lg:10 text-white text-center content-center overflow-auto">
+      <div className="login-bg-image "></div>
 
       <div className="">
         <div>
           <img
             src="/images/login-logo-white.png"
-            className="mt-10 mx-auto md:w-[300px] w-[200px] mb-20 md:mb-28` md:mt-20"
+            className="mt-16 mx-auto md:w-[300px] w-[200px] mb-20 md:mb-26 md:mt-18"
           />
         </div>
         <LoginForm/>
@@ -63,7 +63,7 @@ const Login = () => {
             <p className="inline text-[9pt]">Login with</p>
             <hr className="inline-block w-[20%] h-px mb-[5px] bg-white mx-3 sm:mx-10" />
           </div>
-          <a className=" hover:cursor-pointer mt-5 h-[40px] inline-block border border-white  py-1 px-10 rounded-md">
+          <a className=" hover:cursor-pointer hover:backdrop-brightness-150 mt-5 h-[40px] inline-block border border-white  py-1 px-10 rounded-md">
             <img
               src="/images/googleLogo.png"
               className="w-[30px] h-[30px] mx-auto "

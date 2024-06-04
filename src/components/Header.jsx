@@ -4,14 +4,13 @@ import profileImg from "../../images/profile-green.png";
 import { useLocation } from "react-router-dom";
 
 const SlideMenu = ({navNames}) => {
-  const location = useLocation()
   const [isOpen, setIsOpen] = useState(false);
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
   return (
-    <aside className="slide-menu-container md:hidden fixed top-7 right-7">
-      <label className="open-button z-10">
+    <aside className="slide-menu-container md:hidden fixed top-7 right-7 z-10">
+      <label className="open-button z-20 bg-[#f7f7f7]">
         <input type="checkbox" onClick={toggleDropdown} />
       </label>
       <div
@@ -37,7 +36,7 @@ const TopBar = () => {
           <img src={homeLogo} alt="home logo" className="w-15 h-10" />
         </a>
         <a href="/home" className="hover:cursor-pointer">
-          <h1 className="relative bottom-2 left-1 text-green-900 font-semibold">
+          <h1 className="relative bottom-2 left-1 text-green-900 ">
             Quizzme
           </h1>
         </a>
@@ -69,8 +68,8 @@ const NavBar = () => {
   const navNames = ["Home", "MyQuizzes", "Quizz_me", "Performance"];
 
   return (
-    <nav>
-      <div className="mx-8 my-6 hidden md:block">
+    <nav className="mx-8 mt-6 ">
+      <div className="hidden md:block">
         <ul className="flex justify-around list-none font-medium text-gray-400">
           {navNames.map((name) => (
             <NavItem key={name} name={name} />
