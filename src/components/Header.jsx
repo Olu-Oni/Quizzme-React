@@ -3,7 +3,7 @@ import homeLogo from "../../images/logo-orange.png";
 import profileImg from "../../images/profile-green.png";
 import { useLocation } from "react-router-dom";
 
-const SlideMenu = ({navNames}) => {
+const SlideMenu = ({ navNames }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -20,7 +20,7 @@ const SlideMenu = ({navNames}) => {
           <img src={profileImg} alt="profile Image" className="w-13 h-8" />
         </a>
         <ul className="grid grid-rows-4 my-6 h-[240px]">
-        {navNames.map((name) => (
+          {navNames.map((name) => (
             <NavItem key={name} name={name} />
           ))}
         </ul>
@@ -36,9 +36,7 @@ const TopBar = () => {
           <img src={homeLogo} alt="home logo" className="w-15 h-10" />
         </a>
         <a href="/home" className="hover:cursor-pointer">
-          <h1 className="relative bottom-2 left-1 text-green-900 ">
-            Quizzme
-          </h1>
+          <h1 className="relative bottom-2 left-1 text-green-900 ">Quizzme</h1>
         </a>
       </div>
       <a className="hover:cursor-pointer hidden md:block">
@@ -56,7 +54,7 @@ const NavItem = ({ name }) => {
         location.pathname === `/${name}` ? "active nav_item" : "nav_item "
       }
     >
-      <a href={`/${name}`} >
+      <a href={`/${name}`}>
         <span></span>
         {name.includes("_") ? name.replace("_", " ") : name}{" "}
         <hr className="nav_underline max-md:hidden" />
@@ -75,10 +73,9 @@ const NavBar = () => {
             <NavItem key={name} name={name} />
           ))}
         </ul>
-        
       </div>
       <hr className="h-[0.05em] bg-green-600 border-none" />
-      <SlideMenu navNames={navNames}/>
+      <SlideMenu navNames={navNames} />
     </nav>
   );
 };

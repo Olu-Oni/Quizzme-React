@@ -13,8 +13,8 @@ a {
   cursor: pointer;
 }
 
-h1{
-  @apply text-xl
+h1 {
+  @apply text-xl;
 }
 .font-urbanist {
   font-family: "Urbanist", sans-serif;
@@ -34,6 +34,7 @@ h1{
 body {
   background-color: #eff0f3;
 }
+
 @layer components {
   /* login */
   .loginInput {
@@ -61,7 +62,7 @@ body {
 
   /* slide-Meu */
   .slide-menu {
-    @apply fixed top-0 transition-transform duration-300 ease-out translate-x-24  w-[260px] h-[350px] rounded-bl-3xl bg-white p-7;
+    @apply fixed top-0 transition-transform duration-300 ease-out translate-x-24  w-[260px] h-[350px] rounded-bl-3xl bg-white p-7 border-2;
   }
   /* burger */
   :root {
@@ -136,7 +137,7 @@ body {
   @apply absolute top-0 left-0 w-full h-full bg-[#002a28] opacity-[0.9];
 }
 
-/* Content page */
+/* Home Content page */
 .box-bg-image {
   background-image: url("/images/green_abstract.jpg");
   @apply absolute z-[-20] w-full h-[inherit] bg-center bg-cover rounded-lg;
@@ -157,4 +158,26 @@ body {
 .home-box:hover .box-text,
 .home-box:hover p {
   @apply max-sm:opacity-100 max-sm:translate-x-4;
+}
+
+/* MQ Content */
+.searchBar::after {
+  content: url(../images/icon_Search.png);
+  @apply absolute right-4 scale-75;
+}
+
+.quiz-grid {
+  grid-template-columns: repeat(auto-fit, minmax(208px, 1fr));
+  gap: 3em;
+}
+
+.quiz-grid > div {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  @apply m-auto;
+}
+
+.quiz-button:hover {
+  background-color: rgba(255, 255, 255, 0.564);
+  outline: solid 3px white;
 }
