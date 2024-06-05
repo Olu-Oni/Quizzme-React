@@ -12,6 +12,10 @@ button,
 a {
   cursor: pointer;
 }
+.myButton:hover {
+ @apply bg-opacity-60;
+  outline: solid 3px white;
+}
 
 h1 {
   @apply text-xl;
@@ -101,18 +105,18 @@ body {
     @apply relative bottom-[6px] flex flex-col justify-center items-center cursor-pointer rounded-full p-0 w-10 h-10 bg-[#eef0f2];
   }
 
-  .open-button input:checked {
+  .close-button input {
     opacity: 0%;
     height: 0px;
   }
 
-  .open-button:has(input:checked)::before {
+  .close-button::before {
     height: var(--bar-height);
     rotate: 45deg;
     translate: 0 5px;
   }
 
-  .open-button:has(input:checked)::after {
+  .close-button::after {
     height: var(--bar-height);
     rotate: -45deg;
     translate: 0 -4px;
@@ -148,7 +152,7 @@ body {
 }
 
 .button-expand {
-  @apply max-sm:w-[100%] max-sm:h-[100%] max-sm:m-0 max-sm:rounded-lg;
+  @apply max-sm:w-[100%] max-sm:h-[100%] max-sm:text-white max-sm:m-0 max-sm:rounded-lg;
 }
 
 .home-box:hover button {
@@ -163,7 +167,10 @@ body {
 /* MQ Content */
 .searchBar::after {
   content: url(../images/icon_Search.png);
-  @apply absolute right-4 scale-75;
+  @apply absolute right-4 scale-75 opacity-30 transition-all;
+}
+.searchBar:has(input:focus)::after{
+  opacity:0%;
 }
 
 .quiz-grid {
@@ -177,7 +184,3 @@ body {
   @apply m-auto;
 }
 
-.quiz-button:hover {
-  background-color: rgba(255, 255, 255, 0.564);
-  outline: solid 3px white;
-}

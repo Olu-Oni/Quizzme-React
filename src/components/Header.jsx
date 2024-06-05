@@ -1,17 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import homeLogo from "../../images/logo-orange.png";
 import profileImg from "../../images/profile-green.png";
 import { useLocation } from "react-router-dom";
 
-const SlideMenu = ({ navNames }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const SlideMenu = ({ navNames,dropDown }) => {
+  const {isOpen, setIsOpen} = dropDown
+  console.log('opened?', isOpen)
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => setIsOpen(false), []);
   return (
     <aside className="slide-menu-container md:hidden fixed top-7 right-7 z-10">
-      <label className="open-button z-20 bg-[#f7f7f7]">
-        <input type="checkbox" onClick={toggleDropdown} />
+      <label className={isOpen?"open-button close-button z-20 bg-[#f7f7f7]":"open-button z-20 bg-[#f7f7f7]"}>
+        <input type="checkbox" checked={isOpen} onChange={toggleDropdown} />
       </label>
       <div
         className={isOpen ? "slide-menu translate-x-[-150px]" : "slide-menu "}
@@ -62,7 +65,7 @@ const NavItem = ({ name }) => {
     </li>
   );
 };
-const NavBar = () => {
+const NavBar = ({dropDown}) => {
   const navNames = ["Home", "MyQuizzes", "Quizz_me", "Performance"];
 
   return (
@@ -75,16 +78,16 @@ const NavBar = () => {
         </ul>
       </div>
       <hr className="h-[0.05em] bg-green-600 border-none" />
-      <SlideMenu navNames={navNames} />
+      <SlideMenu navNames={navNames}  dropDown={dropDown}/>
     </nav>
   );
 };
 
-const Header = () => {
+const Header = ({dropDown}) => {
   return (
     <header className="flex-col  my-7 flex-grow">
       <TopBar />
-      <NavBar />
+      <NavBar dropDown={dropDown}/>
     </header>
   );
 };

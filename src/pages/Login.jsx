@@ -50,8 +50,7 @@ const Login = () => {
           Don't have an account? &nbsp;
           <a
             className=" hover:cursor-pointer transition-all duration-500 hover:text-green-500 text-[#35C2C1]"
-            href="#"
-            onClick={()=> window.location.href = '/Welcome'}
+            href="/Welcome"
           >
             Sign up Now
           </a>
