@@ -1,4 +1,4 @@
-import MyButton from "../../../components/MyButton";
+import MyButton from "../MyButton";
 
 const Modal = ({ modalVisible, startQuiz }) => {
   return (

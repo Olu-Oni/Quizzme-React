@@ -26,7 +26,7 @@ const Timer = ({ startQuiz, initialMinutes, initialSeconds }) => {
 
         if (newSeconds < 0) {
           newSeconds = 59;
-          newMinutes -= 1;
+          newMinutes = minutes - 1;
           setMinutes(newMinutes);
         }
 
