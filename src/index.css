@@ -6,15 +6,12 @@
 
 * {
   transition: all 0.1s ease;
+  font-size: 12pt;
 }
 
 button,
 a {
   cursor: pointer;
-}
-.myButton:hover {
- @apply bg-opacity-60;
-  outline: solid 3px white;
 }
 
 h1 {
@@ -151,8 +148,10 @@ body {
   @apply absolute z-[-10] w-full h-[inherit] bg-center bg-cover rounded-lg opacity-60;
 }
 
+  
+
 .button-expand {
-  @apply max-sm:w-[100%] max-sm:h-[100%] max-sm:text-white max-sm:m-0 max-sm:rounded-lg;
+  @apply absolute bottom-0 right-0 bg-white text-black m-3 max-sm:w-[100%] max-sm:h-[100%] max-sm:text-white max-sm:m-0 max-sm:rounded-lg;
 }
 
 .home-box:hover button {
@@ -167,7 +166,7 @@ body {
 /* MQ Content */
 .searchBar::after {
   content: url(../images/icon_Search.png);
-  @apply absolute right-4 scale-75 opacity-30 transition-all;
+  @apply absolute top-[2px] right-4 scale-75 opacity-30 transition-all;
 }
 .searchBar:has(input:focus)::after{
   opacity:0%;
@@ -184,3 +183,21 @@ body {
   @apply m-auto;
 }
 
+.colGrid{
+  
+  grid-template-columns: 58% auto;
+}
+
+/* Take Quiz */
+
+/* .tick:has(label:focus) */
+
+input[type="radio"]:checked + span {
+  @apply bg-green-900
+}
+input[type="radio"]:checked + span > .check {
+@apply block 
+}
+label:has(input[type="radio"]:checked ) {
+  background-color: #04fc0045;
+}

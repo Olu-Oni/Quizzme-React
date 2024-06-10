@@ -13,7 +13,7 @@ import TakeQuiz from './pages/main/sub/TakeQuiz'
 const App = () => {
   const [isOpen, setIsOpen] = useState(false); 
   return (
-    <div className='font-urbanist max-sm:text-lg'>
+    <div className='font-urbanist max-sm:text-lg  min-h-dvh'>
       <BrowserRouter>
         <Routes>
           <Route index element={<Welcome/>} />
@@ -24,6 +24,7 @@ const App = () => {
           <Route path='/Performance' element={<Performance dropDown={{isOpen,setIsOpen}}/>} />
           <Route path='/Quizz_me' element={<Quizz_me dropDown={{isOpen,setIsOpen}}/>} />
           <Route path='/TakeQuiz' element={<TakeQuiz/>} />
+          <Route path='/Performance' element={<Performance/>} />
           <Route path='*' element={<NoPath/>} />
         </Routes>
       </BrowserRouter>

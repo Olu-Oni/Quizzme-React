@@ -9,6 +9,14 @@ export default {
       screens: {
         'sm': '550px', 
       },
+      gridTemplateColumns: {
+        // Custom grid templates
+        'custom-1': '58% auto'
+        },
+        gridTemplateRows: {
+          // Custom grid templates
+          'custom-1': '38% auto'
+          },
 
     },
   },

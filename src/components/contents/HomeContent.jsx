@@ -16,7 +16,7 @@ const HomeContent = () => {
           </p>
         </div>
         
-        <MyButton text='Create a new Quiz' bgColor='white' txtColor={'black'} extraClass="absolute bottom-0 right-0 button-expand max-sm:bg-green-800 m-3"/>
+        <MyButton text='Create a new Quiz'  extraClass="button-expand max-sm:bg-green-800"/>
         
       </div>
 
@@ -28,7 +28,7 @@ const HomeContent = () => {
             Start a quiz either you <br className="max-md:hidden" /> or a friend{" "}
             <br className="max-md:hidden" /> created{" "}
           </p>
-          <MyButton  changeWindow='/Quizz_me' text='Start a Quiz' bgColor='white' txtColor={'black'} extraClass="absolute bottom-0 right-0 button-expand max-sm:bg-[#a7d231] m-3"/>
+          <MyButton  changeWindow='/Quizz_me' text='Start a Quiz' extraClass="button-expand  max-sm:bg-[#a7d231]"/>
        
         </div>
         <div className="max-md: home-box relative sm:basis-[58%] w-full flex flex-shrink-[2]  h-44 md:h-52 rounded-lg my-3 sm:ml-[2%] overflow-hidden">
@@ -38,7 +38,7 @@ const HomeContent = () => {
             {" "}
             View and Manage all your Quizzes here!
           </p>
-          <MyButton  changeWindow='/MyQuizzes' text='View MyQuizzes' bgColor='white' txtColor={'black'} extraClass="absolute bottom-0 right-0 button-expand max-sm:bg-[#0ab6fa] m-3"/>
+          <MyButton  changeWindow='/MyQuizzes' text='View MyQuizzes' extraClass="button-expand max-sm:bg-[#0ab6fa] "/>
        
         </div>
       </div>

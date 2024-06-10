@@ -18,9 +18,8 @@ const Quizzes = ({ title, num, author }) => {
       <div className="p-2 m-1">
         <MyButton
           text="Take Quiz"
-          bgColor="white"
-          txtColor={"black"}
-          extraClass="w-full"
+          extraClass="w-full bg-white"
+          changeWindow={'/TakeQuiz'}
         />
       </div>
     </div>
@@ -29,14 +28,14 @@ const Quizzes = ({ title, num, author }) => {
 const QmContent = () => {
   return (
     <main className="">
-      <label className="relative block mx-auto w-fit">
+      <label className="relative block mx-auto w-fit ">
         <input
-          className="search transition-all pl-3 pr-10 pt-2 pb-1 h-10 rounded-[17px] text-green-700 placeholder:text-inherit outline-[inherit] md:min-w-[25dvw] focus:min-w-[35dvw] "
+          className="search transition-all pl-3 pr-2 pt-2 pb-1 h-10 rounded-s-[17px] text-green-700 placeholder:text-inherit outline-[inherit] md:min-w-[25dvw] focus:md:min-w-[35dvw]"
           type="text"
           placeholder="Search by name or author"
         />
-        <button className="relative duration-[010ms] ease-in top-2 right-10 scale-75 opacity-70 active:opacity-30 active:scale-[60%]">
-          <img src={searchImg} alt="search icon" />
+        <button className="relative top-[10px] right-2 rounded-e-2xl duration-[010ms] ease-in bg-white ml-[4px] w-10 h-[53.2px] scale-75 opacity-70 active:opacity-30 active:scale-[60%]">
+          <img src={searchImg} alt="search icon" className="ml-1"/>
         </button>
       </label>
       <div className="quiz-grid m-3 mt-10 grid ">
