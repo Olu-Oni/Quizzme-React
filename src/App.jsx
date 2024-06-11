@@ -8,6 +8,7 @@ import Performance from './pages/main/Perfomance'
 import MyQuizzes from './pages/main/MyQuizzes'
 import Welcome from './pages/Welcome'
 import TakeQuiz from './pages/main/sub/TakeQuiz'
+import CreateQuiz from './pages/main/sub/CreateQuiz'
 
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
           <Route path='/Performance' element={<Performance dropDown={{isOpen,setIsOpen}}/>} />
           <Route path='/Quizz_me' element={<Quizz_me dropDown={{isOpen,setIsOpen}}/>} />
           <Route path='/TakeQuiz' element={<TakeQuiz/>} />
+          <Route path='/CreateQuiz' element={<CreateQuiz dropDown={{isOpen,setIsOpen}}/>} />
           <Route path='/Performance' element={<Performance/>} />
           <Route path='*' element={<NoPath/>} />
         </Routes>

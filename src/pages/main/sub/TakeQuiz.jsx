@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import {useState } from "react";
 import backIcon from "../../../../images/arrow.svg";
 import MyButton from "../../../components/MyButton";
 import MultiChoice from "../../../components/inputs/MultiChoice";
@@ -26,7 +26,9 @@ const Header = ({ startQuiz, initialMinutes, initialSeconds }) => {
 const Main = ({ myCards, changeCards, questions }) => {
   return (
     <main className="flex-1 flex flex-col">
-      <div className="mb-6 md:mb-16 text-xl md:text-2xl font-bold">7/10</div>
+      <div className="mb-6 md:mb-16 text-xl md:text-2xl font-bold">
+        {`${myCards.currentCardIndex+1}/${questions.length}`}
+      </div>
       <div className="flex-1 grid md:grid-cols-custom-1 max-md:grid-rows-custom-1 gap-10">
         <StackedCards
           myCards={myCards}

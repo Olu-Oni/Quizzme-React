@@ -201,3 +201,17 @@ input[type="radio"]:checked + span > .check {
 label:has(input[type="radio"]:checked ) {
   background-color: #04fc0045;
 }
+
+/* Create Quiz */
+.multiOption{
+  @apply relative ml-8 focus:bg-slate-300 mb-4
+}
+.multiOption::before{
+  content:'';
+  @apply absolute bottom-2 -left-6 block w-4 h-4 rounded-full border-2 border-gray-400
+}
+
+.addQuestion::before{
+  content: '+';
+  @apply relative text-2xl mr-2 top-[1px]
+}

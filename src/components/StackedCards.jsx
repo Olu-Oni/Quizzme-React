@@ -2,24 +2,18 @@ const Card = ({ question, shadow }) => (
     <div className={`flex bg-white sm:w-[80%] md:w-[90%] h-full md:h-[80%] lg:h-[90%] m-auto rounded-3xl px-10 max-md:px-6 ${shadow}`} >
       <p className="m-auto text-base md:text-xl ">{question}</p>
     </div>
-
-// <div className="flex bg-white sm:w-[80%] md:w-[90%] h-full md:h-[80%] lg:h-[90%] m-auto rounded-3xl px-10 max-md:px-6 shadow-2xl">
-// <p className="m-auto text-base md:text-xl ">{question}</p>
-// </div>
   );
 const StackedCards = ({questions, myCards, changeCards}) => {
-  
-  const {currentCardIndex} = myCards
-  // const {handleNext, handlePrev} = changeCards
-  
+
+  const {currentCardIndex} = myCards 
   return (
     <div className="relative w-full h-full">
       {questions.map((q, index) => (
         <div
           key={q.id}
-          className={`absolute w-full h-full transition-transform duration-500 ease-in-out ${
+          className={`absolute w-full h-full transition-transform duration-[700ms] ease-in-out ${
             index < currentCardIndex
-              ? "transform -translate-x-[150%]"
+              ? "transform sm:-translate-x-[100%] -translate-x-[120%]"
               : "transform translate-x-0"
           }`}
           style={{ zIndex: questions.length - index }}

@@ -16,7 +16,7 @@ const HomeContent = () => {
           </p>
         </div>
         
-        <MyButton text='Create a new Quiz'  extraClass="button-expand max-sm:bg-green-800"/>
+        <MyButton changeWindow='/CreateQuiz' text='Create a new Quiz'  extraClass="button-expand max-sm:bg-green-800"/>
         
       </div>
 

@@ -5,7 +5,6 @@ import { useLocation } from "react-router-dom";
 
 const SlideMenu = ({ navNames,dropDown }) => {
   const {isOpen, setIsOpen} = dropDown
-  console.log('opened?', isOpen)
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
