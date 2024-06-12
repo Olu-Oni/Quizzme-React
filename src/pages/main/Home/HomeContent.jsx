@@ -1,4 +1,4 @@
-import MyButton from "../MyButton";
+import MyButton from "../../../components/MyButton";
 
 const HomeContent = () => {
   return (

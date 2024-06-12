@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Home from './pages/main/Home'
-import Login from './pages/Login'
-import NoPath from './pages/NoPath'
-import Quizz_me from './pages/main/Quizz_me'
-import Performance from './pages/main/Perfomance'
-import MyQuizzes from './pages/main/MyQuizzes'
-import Welcome from './pages/Welcome'
-import TakeQuiz from './pages/main/sub/TakeQuiz'
-import CreateQuiz from './pages/main/sub/CreateQuiz'
+import NoPath from './pages/main/NoPath'
+import Welcome from './pages/main/Welcome'
+import Login from './pages/main/Login'
+import Home from './pages/main/Home/Home'
+import Quizz_me from './pages/main/Quizz_me/Quizz_me'
+import Performance from './pages/main/Performance/Perfomance'
+import MyQuizzes from './pages/main/MyQuizzes/MyQuizzes'
+import TakeQuiz from './pages/sub/TakeQuiz/TakeQuiz'
+import CreateQuiz from './pages/sub/CreateQuiz/CreateQuiz'
 
 
 const App = () => {

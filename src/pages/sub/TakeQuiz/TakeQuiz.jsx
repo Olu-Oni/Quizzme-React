@@ -2,9 +2,9 @@ import {useState } from "react";
 import backIcon from "../../../../images/arrow.svg";
 import MyButton from "../../../components/MyButton";
 import MultiChoice from "../../../components/inputs/MultiChoice";
-import StackedCards from "../../../components/StackedCards";
-import Timer from "../../../components/TakeQuiz/Timer";
-import Modal from "../../../components/TakeQuiz/Modal";
+import StackedCards from "./StackedCards";
+import Timer from "./Timer";
+import Modal from "./Modal";
 
 const Header = ({ startQuiz, initialMinutes, initialSeconds }) => {
   return (

@@ -1,4 +1,4 @@
-import loginLogo from '../../images/login-logo-orange.png'
+import loginLogo from '../../../images/login-logo-orange.png'
 
 const Welcome = () => {
   return (

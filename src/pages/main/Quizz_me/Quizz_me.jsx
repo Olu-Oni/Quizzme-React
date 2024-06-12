@@ -1,5 +1,5 @@
-import Header from "../../components/Header";
-import Content from "../../components/contents/Quizz_meContent"
+import Header from "../../../components/Header";
+import Content from "./Quizz_meContent"
 
 const Quizz_me = ({dropDown}) => {
   return (

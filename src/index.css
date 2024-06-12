@@ -215,3 +215,6 @@ label:has(input[type="radio"]:checked ) {
   content: '+';
   @apply relative text-2xl mr-2 top-[1px]
 }
+.createButton:has(button:hover){
+  @apply -translate-y-1 scale-105
+}

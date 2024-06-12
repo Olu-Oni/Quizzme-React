@@ -1,7 +1,7 @@
-import Content from "../../components/contents/HomeContent";
-import Header from "../../components/Header";
+import Header from "../../../components/Header";
+import Content from "./MyQuizzesContent"
 
-const Home = ({dropDown}) => {
+const MyQuizzes = ({dropDown}) => {
   return (
     <div className="baloo flex flex-col justify-center px-4 sm:px-10 md:px-14 lg:px-[10%]">
       <Header  dropDown={dropDown}/>
@@ -10,4 +10,4 @@ const Home = ({dropDown}) => {
   );
 };
 
-export default Home;
+export default MyQuizzes;

@@ -11,7 +11,7 @@ const MyButton = ({
       onClick={
         changeWindow ? () => (window.location.href = changeWindow) : onClick
       }
-      className={`py-1 px-3 rounded-2xl ${hover?'hover:brightness-150' :'hover:bg-opacity-60'} hover:outline ${outline?outline:'outline-white'} ${extraClass}  `}
+      className={`py-1 px-3 rounded-2xl ${hover?'hover:brightness-150' :'hover:bg-opacity-80'} hover:outline ${outline?outline:'outline-white'} ${extraClass}  `}
     >
       {text}
     </button>
