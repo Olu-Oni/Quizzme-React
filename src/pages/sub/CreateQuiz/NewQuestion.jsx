@@ -1,42 +1,45 @@
-const NewOption = ({ option, deleteOption, myOption, number }) => {
-  const { num, QuID, content } = option;
-  const { optionCount, setOptionCount } = myOption;
-  const handleOptionChange = (e) => {
-    const newOption = { ...option, content: e.target.value };
-    setOptionCount(
-      optionCount.map((o) =>
-        o.QuID === option.QuID && o.num === option.num ? newOption : o
-      )
-    );
-  };
-  //option name
-  const optionName = `${QuID}Op${num}`;
-  //
-  return (
-    <label htmlFor={optionName} className="multiOption">
-      <input
-        type="text"
-        id={optionName}
-        name={optionName}
-        value={content}
-        onChange={handleOptionChange}
-        required
-        placeholder={`Option ${number}`}
-        className=" min-w-48 w-[50%]   pt-1 bg-opacity-35 border-b border-black outline-none"
-      />
-      <button onClick={() => deleteOption(num)} className="ml-3">
-        delete
-      </button>
-    </label>
-  );
+import { MultiOption, CheckOption, TextOption } from "./Options";
+
+const Option = ({ type, option, deleteOption, myOption, number,addOption }) => {
+  console.log(type)
+  switch (type) {
+    case "multiChoice":
+      return (
+        <MultiOption
+          key={option.num}
+          option={option}
+          number={number}
+          deleteOption={deleteOption}
+          myOption={myOption}
+        />
+      );
+    case "checkBox":
+      console.log('check')
+      return (
+        <CheckOption
+          key={option.num}
+          option={option}
+          number={number}
+          deleteOption={deleteOption}
+          myOption={myOption}
+        />
+      );
+    case "text":
+      console.log('text')
+      return (
+        <TextOption
+          key={option.num}
+          option={option}
+          addOption={addOption}
+          myOption={myOption}
+        />
+      );
+  }
 };
 
-// optionCount:optionCount.fiter(option=>option.QuID===question.id)
-
-const NewQuestion = ({ myOption, question,myQuestion }) => {
+const NewQuestion = ({ myOption, question, myQuestion }) => {
   const { optionCount, setOptionCount } = myOption;
   const { questionCount, setQuestionCount } = myQuestion;
-
 
   const deleteOption = (num) => {
     const newCount = optionCount.filter((option) => option.num != num);
@@ -49,15 +52,18 @@ const NewQuestion = ({ myOption, question,myQuestion }) => {
       QuID: question.id,
       content: "",
     };
+    console.log('added')
     setOptionCount([...optionCount.concat(newOption)]);
   };
-
-  const handleQuestionChange = (e,value) => {
-    const newQuestion= { ...question, [value]: e.target.value };
+  const handleQuestionChange = (e, value) => {
+    const newQuestion = { ...question, [value]: e.target.value };
+    if (value === "type") {
+      console.log("type changed",question.type);
+      // if needed, add code to reset options upon change of type
+    }
     setQuestionCount(
       questionCount.map((q) => (q.id === question.id ? newQuestion : q))
     );
-
   };
   return (
     <div className="flex flex-col bg-white rounded-3xl mt-5 p-2 w-full min-h-[150px] shadow-lg">
@@ -75,32 +81,34 @@ const NewQuestion = ({ myOption, question,myQuestion }) => {
           name={`${question.id}Type`}
           value={question.type}
           onChange={(e) => handleQuestionChange(e, "type")}
-          className="max-w-32 m-3"
+          className="max-w-32 m-3 outline-none hover:bg-slate-200"
         >
           <option value="multiChoice">MultiChoice</option>
+          <option value="checkBox">Check Box</option>
           <option value="text">Text</option>
-          <option value="multiChoice">MultiChoice</option>
         </select>
       </div>
       <div className="flex flex-col">
         {optionCount
-          ? optionCount
-              .filter((option) => option.QuID === question.id)
-              .map((option, i) => (
-                <NewOption
-                  key={option.num}
-                  option={option}
-                  number={i + 1}
-                  deleteOption={deleteOption}
-                  myOption={myOption}
-                />
-              ))
-          : null}
+          .filter((option) => option.QuID === question.id)
+          .map((option, i) => (
+            <Option
+              type={question.type}
+              key={option.num}
+              option={option}
+              number={i + 1}
+              deleteOption={deleteOption}
+              addOption={addOption}
+              myOption={myOption}
+            />
+          ))}
 
         <a
           id="addOption"
           onClick={addOption}
-          className="multiOption text-gray-500 pb-0 hover:text-black"
+          className={`multiOption text-gray-500 pb-0 hover:text-black ${
+            question.type === "text" ? "hidden" : "block"
+          }`}
         >
           Add new option...
         </a>

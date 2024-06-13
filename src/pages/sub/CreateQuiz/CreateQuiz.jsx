@@ -37,15 +37,11 @@ const Main = ({ myOption, myQuestion }) => {
       id: `Q${QuNum}`,
       QuizID: `Quiz1`,
       content: "",
-      type: "multichoice",
+      type: "multiChoice",
      };
     setQuestionCount([...questionCount.concat(newQuestion)]);
   };
  
-  
-
-  console.log("New question", questionCount);
-
   return (
     <main className="flex flex-col items-center lg:mx-36 mb-5">
       <h1 className="text-green-900">Create your own custom Quiz</h1>
