@@ -204,7 +204,7 @@ label:has(input[type="radio"]:checked ) {
 
 /* Create Quiz */
 .multiOption{
-  @apply relative ml-8 focus:bg-slate-300 mb-4
+  @apply relative ml-8 focus:bg-slate-300 m-3
 }
 .multiOption::before{
   content:'';
