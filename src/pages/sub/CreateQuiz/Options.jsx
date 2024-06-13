@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 const MultiOption = ({ option, deleteOption, myOption, number }) => {
     const { num, QuID, content } = option;
     const { optionCount, setOptionCount } = myOption;
@@ -65,6 +67,7 @@ const MultiOption = ({ option, deleteOption, myOption, number }) => {
   };
 
   const TextOption = ({ option, myOption, addOption }) => {
+    
     const { num, QuID, content } = option;
     const { optionCount, setOptionCount } = myOption;
     const handleOptionChange = (e) => {
@@ -79,7 +82,6 @@ const MultiOption = ({ option, deleteOption, myOption, number }) => {
     const optionName = `${QuID}Op${num}`;
     //
     console.log('text')
-    addOption()
     return (
       <label htmlFor={optionName} className="multiOption">
         <input
