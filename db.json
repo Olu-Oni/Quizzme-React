@@ -1,14 +1,40 @@
 {
-    
-    "Quiz":[
-        {
-            "id":"Quiz1"
-        }
-    ],
-    "Questions":[
-        {
-           "content":"What is React?"
-        }
-        
-    ]
+  "Quiz": [
+    {
+      "id": "Quiz2",
+      "title": "ioio",
+      "desc": "h-98y9",
+      "time": "08:00",
+      "createdAt": "6/13/2024, 3:56:02 PM"
+    }
+  ],
+  "Questions": [
+    {
+      "id": "Q1",
+      "QuizID": "Quiz1",
+      "content": "What is React?",
+      "type": "multichoice"
+    }
+  ],
+  "Options": [
+    {
+      "id": "Q1Op1",
+      "QuestionID": "Q1",
+      "content": "react is mad innit",
+      "isCorrect": true
+    },
+    {
+      "id": "5d8d",
+      "title": "Something",
+      "desc": "yoooooooooooooooooooooooooooooooooooooooooo",
+      "time": ""
+    },
+    {
+      "id": "Quiz2",
+      "title": "ioio",
+      "desc": "h-98y9",
+      "time": "08:00",
+      "createdAt": "6/13/2024, 3:54:36 PM"
+    }
+  ]
 }

@@ -5,6 +5,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import MyButton from "../../../components/MyButton";
+import { addOption, addQuestion, addQuiz } from "../../../services/quiz";
 
 // Time component
 const Time = () => (
@@ -27,12 +28,23 @@ const Time = () => (
 );
 
 // Main component
-const Main = ({myOption, myQuestion}) => {
-  const {questionCount, setQuestionCount} = myQuestion
+const Main = ({ myOption, myQuestion }) => {
+  const { questionCount, setQuestionCount } = myQuestion;
 
+  const QuNum = questionCount.length + 1;
   const addQuestion = () => {
-    setQuestionCount([...questionCount, questionCount.length + 1]);
+    const newQuestion = {
+      id: `Q${QuNum}`,
+      QuizID: `Quiz1`,
+      content: "",
+      type: "multichoice",
+     };
+    setQuestionCount([...questionCount.concat(newQuestion)]);
   };
+ 
+  
+
+  console.log("New question", questionCount);
 
   return (
     <main className="flex flex-col items-center lg:mx-36 mb-5">
@@ -54,8 +66,13 @@ const Main = ({myOption, myQuestion}) => {
           className="bg-slate-100 max-h-[50%] m-3 p-2 pb-0 bg-opacity-35 border-b border-black outline-none text-lg resize-none"
         />
       </div>
-      {questionCount.map((count) => (
-        <NewQuestion key={count} questionName={`Q${count}`} myOption={myOption} />
+      {questionCount.map((question) => (
+        <NewQuestion
+          key={question.id}
+          question={question}
+          myOption={myOption}
+          myQuestion={myQuestion}
+          />
       ))}
       <a
         onClick={addQuestion}
@@ -71,23 +88,26 @@ const Main = ({myOption, myQuestion}) => {
 
 // CreateQuiz component
 const CreateQuiz = ({ dropDown }) => {
-  const [questionCount, setQuestionCount] = useState([1]);
+  const [questionCount, setQuestionCount] = useState([]);
   const [optionCount, setOptionCount] = useState([]);
   const myOption = { optionCount, setOptionCount };
-  const myQuestion = {questionCount, setQuestionCount}
+  const myQuestion = { questionCount, setQuestionCount };
 
+  const date = new Date();
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const myQuiz = {
-      title: formData.get('title'),
-      desc: formData.get('desc'),
-      time: formData.get('time'),
-      questionAmount: 0,
-      createdAt: "",
+      title: formData.get("title"),
+      desc: formData.get("desc"),
+      time: formData.get("time"),
+      id: "Quiz2",
+      // questionAmount: 0,
+      createdAt: date.toLocaleString("GMT"),
     };
-    console.log(myQuiz);
-    const question = []
+    addQuiz(myQuiz).then((response) => console.log(response));
+
+    const question = [];
     // Further processing can be added here
   };
 
@@ -119,7 +139,7 @@ const CreateQuiz = ({ dropDown }) => {
             </svg>
           </button>
         </div>
-        <Main myOption={myOption} myQuestion={myQuestion}/>
+        <Main myOption={myOption} myQuestion={myQuestion} />
       </form>
     </div>
   );
