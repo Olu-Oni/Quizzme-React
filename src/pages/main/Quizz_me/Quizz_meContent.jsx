@@ -1,5 +1,5 @@
 import searchImg from "../../../../images/icon_Search.png";
-import MyButton from "../../../components/MyButton";
+import {MyButton} from "../../../components/MyButtons";
 const Quizzes = ({ title, num, author }) => {
   return (
     <div className=" relative w-52 h-48 rounded-lg shadow-gray-500 shadow-lg hover:shadow-gray-400">

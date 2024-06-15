@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Trash } from "../../../components/inputs/Icons";
 import { MultiOption, CheckOption, TextOption } from "./Options";
 
 const Option = ({
@@ -7,10 +7,8 @@ const Option = ({
   question,
   deleteOption,
   myOption,
-
   addOption,
 }) => {
-  console.log(type);
   switch (type) {
     case "multiChoice":
       return (
@@ -21,7 +19,7 @@ const Option = ({
               <MultiOption
                 key={opt.num}
                 option={opt}
-                number={opt.num}
+                number={i + 1}
                 deleteOption={deleteOption}
                 myOption={myOption}
               />
@@ -30,16 +28,13 @@ const Option = ({
           <a
             id="addOption"
             onClick={addOption}
-            className={`multiOption text-gray-500 pb-0 hover:text-black ${
-              question.type === "text" ? "hidden" : "block"
-            }`}
+            className={`multiOption text-gray-500 pb-0 hover:text-black`}
           >
             Add new option...
           </a>
         </div>
       );
     case "checkBox":
-      console.log("check");
       return (
         <div className="flex flex-col">
           {optionCount
@@ -48,7 +43,7 @@ const Option = ({
               <CheckOption
                 key={opt.num}
                 option={opt}
-                number={opt.num}
+                number={i + 1}
                 deleteOption={deleteOption}
                 myOption={myOption}
               />
@@ -66,21 +61,20 @@ const Option = ({
         </div>
       );
     case "text":
-      return (
-        optionCount.find((opt) => opt.QuID === question.id)?
+      return optionCount.find((opt) => opt.QuID === question.id) ? (
         <TextOption
           key={question.id}
           option={optionCount.find((opt) => opt.QuID === question.id)}
           addOption={addOption}
           myOption={myOption}
-        />:null
-      );
+        />
+      ) : null;
     default:
       return null;
   }
 };
 
-const NewQuestion = ({ myOption, question, myQuestion }) => {
+const NewQuestion = ({ myOption, question, myQuestion, deleteQuestion }) => {
   const { optionCount, setOptionCount } = myOption;
   const { questionCount, setQuestionCount } = myQuestion;
 
@@ -94,17 +88,19 @@ const NewQuestion = ({ myOption, question, myQuestion }) => {
       num: optionCount.length + 1,
       QuID: question.id,
       content: "",
+      isCorrect: false,
     };
-    console.log("added");
     setOptionCount([...optionCount, newOption]);
   };
-console.log(optionCount)
   const handleQuestionChange = (e, value) => {
     const newQuestion = { ...question, [value]: e.target.value };
-    if (value === "type" && newQuestion.type==="text") {
-      console.log("type changed", newQuestion.type);
-      addOption()
-      // if needed, add code to reset options upon change of type
+    if (value === "type") {
+      //resetting the options on type change
+      setOptionCount([...optionCount.filter((o) => o.QuID != question.id)]);
+      if (newQuestion.type === "text") {
+        // automatically adding one option for type 'text' change
+        addOption();
+      }
     }
     setQuestionCount(
       questionCount.map((q) => (q.id === question.id ? newQuestion : q))
@@ -141,8 +137,11 @@ console.log(optionCount)
         deleteOption={deleteOption}
         addOption={addOption}
         myOption={myOption}
-        
       />
+      <button onClick={()=>deleteQuestion(question.id)} className="mt-4 opacity-60 hover:opacity-100">
+        remove Question
+        <Trash/>
+      </button>
     </div>
   );
 };

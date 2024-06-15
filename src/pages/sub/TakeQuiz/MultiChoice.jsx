@@ -1,7 +1,7 @@
-import checkMark from '../../../images/checkMark.svg'
+import checkMark from '../../../../images/checkMark.svg'
 const Choice = ({ name, value }) => {
   return (
-    <label htmlFor={value} className="flex justify-between relative bg-white p-[9px] pt-[14px] pl-12 md:pl-10 pr-8 w-[95%] text-left text-base md:text-lg rounded-2xl shadow-md">
+    <label htmlFor={value} className="myChoiceLabel flex justify-between relative bg-white p-[9px] pt-[14px] pl-12 md:pl-10 pr-8 w-[95%] text-left text-base md:text-lg rounded-2xl shadow-md">
       <input className="myChoice hidden" id={value} type="radio" name={name} value={value} />
       {value}
       <span className="inline-block relative w-5 h-5 rounded-full border border-green-950 ">

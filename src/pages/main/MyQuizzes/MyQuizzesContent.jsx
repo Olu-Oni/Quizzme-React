@@ -1,3 +1,5 @@
+import { CreateQuizButton } from "../../../components/MyButtons";
+
 const Quizzes = ({ title, num }) => {
   return (
     <div className=" relative w-52 h-48 rounded-lg shadow-gray-500 shadow-lg hover:shadow-gray-400">
@@ -43,6 +45,7 @@ const MQContent = () => {
         <Quizzes title="Mathssss" num={45} />
         <Quizzes title="Mathssss" num={45} />
       </div>
+      <CreateQuizButton text={'Create a new Quiz'} changeWindow={'/CreateQuiz'} outline={'outline-green-800'}/>
     </main>
   );
 };

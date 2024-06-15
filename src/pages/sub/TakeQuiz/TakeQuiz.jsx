@@ -1,7 +1,7 @@
 import {useState } from "react";
 import backIcon from "../../../../images/arrow.svg";
-import MyButton from "../../../components/MyButton";
-import MultiChoice from "../../../components/inputs/MultiChoice";
+import {MyButton} from "../../../components/MyButtons";
+import MultiChoice from "./MultiChoice";
 import StackedCards from "./StackedCards";
 import Timer from "./Timer";
 import Modal from "./Modal";

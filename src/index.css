@@ -190,15 +190,13 @@ body {
 
 /* Take Quiz */
 
-/* .tick:has(label:focus) */
-
-input[type="radio"]:checked + span {
+.myChoice:checked + span {
   @apply bg-green-900
 }
-input[type="radio"]:checked + span > .check {
+.myChoice:checked + span > .check {
 @apply block 
 }
-label:has(input[type="radio"]:checked ) {
+.myChoiceLabel:has(.myChoice:checked ) {
   background-color: #04fc0045;
 }
 
@@ -217,4 +215,36 @@ label:has(input[type="radio"]:checked ) {
 }
 .createButton:has(button:hover){
   @apply -translate-y-1 scale-105
+}
+
+.myOption:checked + span {
+  @apply bg-green-600 border-none
+}
+.myOption:checked + span > .check {
+@apply block 
+}
+
+/* tooltip */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+ 
+  border-radius: 6px;
+  padding: 5px 5px;
+  position: absolute;
+  top: 180%; /* Position the tooltip above the text */
+  left: 50%;
+  margin-left: -30px;
+  opacity: 0;
+  transition: opacity 0.1s;
+  @apply w-fit bg-slate-100 text-black text-center absolute z-10
+}
+
+.tooltip:hover .tooltiptext {
+  @apply visible opacity-100;
 }
