@@ -4,7 +4,7 @@ import {MyButton} from "../../../components/MyButtons";
 import MultiChoice from "./MultiChoice";
 import StackedCards from "./StackedCards";
 import Timer from "./Timer";
-import Modal from "./Modal";
+import MyModal from "../../../components/Modal";
 
 const Header = ({ startQuiz, initialMinutes, initialSeconds }) => {
   return (
@@ -43,6 +43,29 @@ const Main = ({ myCards, changeCards, questions }) => {
   );
 };
 
+const Modal = ({handleStartQuiz, modalVisible}) =>{
+  
+  return(
+    <MyModal modalVisible={modalVisible}>
+      <div className="flex flex-col justify-between relative min-w-72 w-[55%] min-h-96 bg-white border border-gray-300 rounded-xl">
+          <div className="">
+          <MyButton text="Back" changeWindow="/Quizz_me" extraClass={` top-2 left-2 font-semibold`}/>
+          
+          </div>
+          <h1 className="self-center">
+            Start Quiz?
+          </h1>
+          <div className="self-center w-[inherit]">
+          <MyButton
+            text="Start"
+            onClick={handleStartQuiz}
+            extraClass="bg-green-900 text-white h-fit px-[40%] py-2 m-3 "
+          />
+          </div>
+        </div>
+      </MyModal>
+  )
+}
 const TakeQuiz = () => {
   const [modalVisible, setModalVisibility] = useState(true);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -71,10 +94,9 @@ const TakeQuiz = () => {
     setStartQuiz(true);
     setModalVisibility(false);
   };
-
-  return (
+   return (
     <div>
-      <Modal modalVisible={modalVisible} startQuiz={handleStartQuiz} />
+      <Modal modalVisible={modalVisible} handleStartQuiz={handleStartQuiz}/>
       <div className="baloo h-dvh flex flex-col py-4 px-6 md:px-14 lg:px-[10%] text-center">
         <Header
           startQuiz={startQuiz}

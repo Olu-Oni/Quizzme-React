@@ -76,7 +76,7 @@ const NavBar = ({dropDown}) => {
           ))}
         </ul>
       </div>
-      <hr className="h-[0.05em] bg-green-600 border-none" />
+      <hr className="h-[0.05em] bg-green-600 border-none max-md:absolute max-md:w-dvw left-0" />
       <SlideMenu navNames={navNames}  dropDown={dropDown}/>
     </nav>
   );
@@ -84,7 +84,7 @@ const NavBar = ({dropDown}) => {
 
 const Header = ({dropDown}) => {
   return (
-    <header className="flex-col  my-7 flex-grow">
+    <header className="flex-col  my-7 px-5 md:px-[5%]  flex-grow">
       <TopBar />
       <NavBar dropDown={dropDown}/>
     </header>

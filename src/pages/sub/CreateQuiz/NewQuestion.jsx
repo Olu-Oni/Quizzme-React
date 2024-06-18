@@ -114,6 +114,7 @@ const NewQuestion = ({ myOption, question, myQuestion, deleteQuestion }) => {
           type="text"
           name={question.id}
           required
+          autoFocus
           placeholder="Question..."
           value={question.content}
           onChange={(e) => handleQuestionChange(e, "content")}

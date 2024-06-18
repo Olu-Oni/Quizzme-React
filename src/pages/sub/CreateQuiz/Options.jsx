@@ -51,6 +51,7 @@ const MultiOption = ({ option, deleteOption, myOption, number }) => {
         id={optionName}
         name={optionName}
         value={content}
+        autoFocus
         onChange={(e) => handleOptionChange(e, "content")}
         required
         placeholder={`Option ${number}`}
@@ -106,6 +107,7 @@ const CheckOption = ({ option, deleteOption, myOption, number }) => {
         id={optionName}
         name={optionName}
         value={content}
+        autoFocus
         onChange={(e) => handleOptionChange(e, "content")}
         required
         placeholder={`Option ${number}`}
@@ -147,6 +149,7 @@ const TextOption = ({ option, myOption, addOption }) => {
         id={optionName}
         name={optionName}
         value={content}
+        autoFocus
         onChange={(e) => handleOptionChange(e, "content")}
         required
         placeholder={`Answer1, Answer2, Answer3,...`}

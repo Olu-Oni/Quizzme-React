@@ -4,10 +4,12 @@ const MyButton = ({
   changeWindow,
   onClick,
   hover,
-  outline
+  outline,
+  type
 }) => {
   return (
     <button
+      type={type?type:'button'}
       onClick={
         changeWindow ? () => (window.location.href = changeWindow) : onClick
       }

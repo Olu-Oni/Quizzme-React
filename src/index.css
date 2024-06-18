@@ -36,6 +36,13 @@ body {
   background-color: #eff0f3;
 }
 
+.notification_slide{
+  @apply translate-x-0
+}
+.MuiLinearProgress-bar {
+  transition: none;
+}
+
 @layer components {
   /* login */
   .loginInput {
@@ -46,10 +53,10 @@ body {
     @apply transition-transform w-fit text-gray-400;
   }
   .nav_item:hover {
-    @apply text-black  max-md:translate-x-[.5em] md:translate-y-[-.25em];
+    @apply text-black  max-md:translate-x-[.5em] ;
   }
   .active {
-    @apply text-black max-md:translate-x-[.55em] md:translate-y-[-.25em];
+    @apply text-black max-md:translate-x-[.55em] ;
   }
   .active hr {
     @apply w-2/3;

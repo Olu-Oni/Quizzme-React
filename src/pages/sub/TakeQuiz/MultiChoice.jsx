@@ -38,7 +38,7 @@ const MultiChoice = () => {
   return (
     <div className="flex flex-col gap-4 md:gap-6 m-auto w-[70%] md:w-full min-w-[250px] max-w-[400px] py-1">
       {choices.map((choice) => (
-        <Choice name={choice.name} value={choice.value} />
+        <Choice key={choice.value} name={choice.name} value={choice.value} />
       ))}
     </div>
   );
