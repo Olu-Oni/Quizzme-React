@@ -1,11 +1,99 @@
 {
-  "Quiz": [
-    
-  ],
-  "Questions": [
-    
-  ],
-  "Options": [
-   
+  "Quizzes": [
+    {
+      "id": "8529",
+      "userId": "User1",
+      "title": "First Quiz",
+      "desc": "Sthufff",
+      "time": "00:15",
+      "createdAt": "6/19/2024, 3:03:47 PM",
+      "questions": [
+        {
+          "id": "Qu1",
+          "content": "First Question innit?",
+          "type": "multiChoice",
+          "correctOption": [
+            "1"
+          ],
+          "options": [
+            {
+              "num": 1,
+              "content": "Yup",
+              "isCorrect": true
+            },
+            {
+              "num": 2,
+              "content": "Nope",
+              "isCorrect": false
+            },
+            {
+              "num": 3,
+              "content": "I dunno",
+              "isCorrect": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cdce",
+      "userId": "User1",
+      "title": "me",
+      "desc": "abourt me",
+      "time": "00:15",
+      "createdAt": "6/19/2024, 3:09:40 PM",
+      "questions": [
+        {
+          "id": "Qu1",
+          "content": "my name",
+          "type": "multiChoice",
+          "correctOption": [
+            "1"
+          ],
+          "options": [
+            {
+              "num": 1,
+              "content": "goat",
+              "isCorrect": true
+            },
+            {
+              "num": 2,
+              "content": "wole",
+              "isCorrect": false
+            },
+            {
+              "num": 3,
+              "content": "cat",
+              "isCorrect": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d961",
+      "title": "asfa",
+      "desc": "",
+      "time": "00:15",
+      "createdAt": "6/19/2024, 4:28:13 PM",
+      "questions": [
+        {
+          "id": "Qu1",
+          "userId": "User1",
+          "content": "sss",
+          "type": "multiChoice",
+          "correctOption": [
+            "1"
+          ],
+          "options": [
+            {
+              "num": 1,
+              "content": "sss",
+              "isCorrect": true
+            }
+          ]
+        }
+      ]
+    }
   ]
 }

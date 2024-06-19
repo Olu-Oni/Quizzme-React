@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import NewQuestion from "./NewQuestion";
 import Header from "../../../components/Header";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { MyButton } from "../../../components/MyButtons";
-import { addOption, addQuestion, addQuiz } from "../../../services/quiz";
+import { addQuiz } from "../../../services/quiz";
 import MyModal from "../../../components/Modal";
-import dayjs from "dayjs";
 import MyNotification from "../../../components/MyNotifications";
+import dayjs from "dayjs";
 
 // Time component
 const Time = () => (
@@ -32,8 +32,7 @@ const Time = () => (
 );
 
 //Modal Component
-const Modal = ({ modalVisible, setModalVisible}) => {
-  
+const Modal = ({ modalVisible, setModalVisible }) => {
   return (
     <MyModal modalVisible={modalVisible}>
       <div className="flex flex-col justify-around relative min-w-72 w-[55%] min-h-96 bg-white border border-gray-300 rounded-xl px-8">
@@ -42,6 +41,7 @@ const Modal = ({ modalVisible, setModalVisible}) => {
         </h1>
         <div className="flex justify-center gap-4 md:gap-20">
           <button
+            type="button"
             onClick={setModalVisible}
             className={`text-slate-400 hover:text-black hover:outline-2 outline-slate-300`}
           >
@@ -60,34 +60,41 @@ const Modal = ({ modalVisible, setModalVisible}) => {
 };
 
 // Main component
-const Main = ({ myOption, myQuestion, setModalVisible }) => {
+const Main = ({ myQuestion, setModalVisible, buttonDisabled }) => {
   const { questionCount, setQuestionCount } = myQuestion;
-  const { optionCount } = myOption;
 
   //check if all inputs are filled
   const [quizTitle, setTitle] = useState("");
-  const [quizValid, setQuizValid] = useState(false);
-  useEffect(() => {
+  // const [quizValid, setQuizValid] = useState(false);
+
+  const handleCreate = () => {
     const titleValid = quizTitle.split(" ").join("") !== "";
+
     const questionsValid = questionCount.every(
       (question) => question.content.split(" ").join("") !== ""
     );
-    const optionsValid = optionCount.every(
-      (option) => option.content.split(" ").join("") !== ""
+    let optionsValid = questionCount.every((question) =>
+      question.options.every((opt) => opt.content.split(" ").join("") !== "")
+    );
+    const correctOptValid = questionCount.every(
+      (question) => question.correctOption.length > 0
     );
 
-    setQuizValid(titleValid && questionsValid && optionsValid);
-  }, [questionCount, optionCount]);
-  console.log(quizValid);
+    if (titleValid && questionsValid && optionsValid && correctOptValid) {
+      setModalVisible();
+    }
+  };
+
   //new Questions
   const QuNum = questionCount.length + 1;
   const addQuestion = () => {
     const newQuestion = {
-      id: `Q${QuNum}`,
-      QuizID: `Quiz1`,
+      id: `Qu${QuNum}`,
+      userId: `User1`,
       content: "",
       type: "multiChoice",
-      options:[]
+      correctOption: [],
+      options: [],
     };
     setQuestionCount([...questionCount.concat(newQuestion)]);
   };
@@ -124,7 +131,6 @@ const Main = ({ myOption, myQuestion, setModalVisible }) => {
         <NewQuestion
           key={question.id}
           question={question}
-          myOption={myOption}
           myQuestion={myQuestion}
           deleteQuestion={deleteQuestion}
         />
@@ -140,13 +146,9 @@ const Main = ({ myOption, myQuestion, setModalVisible }) => {
       {questionCount.length > 0 ? (
         <button
           type="button"
-          onClick={setModalVisible}
-          disabled={!quizValid}
-          className={`flex bg-green-300 rounded-3xl mt-5 p-2 w-[90%] min-h-[50px] shadow-lg  ${
-            quizValid
-              ? `hover:text-black hover:bg-green-400 hover:scale-105 cursor-pointer`
-              : ""
-          }`}
+          disabled={buttonDisabled}
+          onClick={handleCreate}
+          className={`flex bg-green-300 rounded-3xl mt-5 p-2 w-[90%] min-h-[50px] shadow-lg hover:text-black hover:bg-green-400 hover:scale-105 cursor-pointer`}
         >
           <p id="addOption" className=" m-auto pb-0 text-xl">
             Create
@@ -167,6 +169,7 @@ const Notification = ({ myNotify }) => {
       time={3000}
     >
       <h2 className="my-4 mx-auto text-xl text-green-700">{notification}</h2>
+      <h3>You will be redirected to another page soon</h3>
     </MyNotification>
   );
 };
@@ -176,34 +179,38 @@ const CreateQuiz = ({ dropDown }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [notification, setNotification] = useState("");
   const [questionCount, setQuestionCount] = useState([]);
-  const [optionCount, setOptionCount] = useState([]);
-  
-  const myOption = { optionCount, setOptionCount };
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+
   const myQuestion = { questionCount, setQuestionCount };
   const myNotify = { notification, setNotification };
-  
+
   const quizDone = () => {
     setModalVisible();
     setNotification("Quiz submitted!!!");
+    setButtonDisabled(true);
   };
 
   const date = new Date();
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
+
     const myQuiz = {
       title: formData.get("title"),
       desc: formData.get("desc"),
       time: formData.get("time"),
       createdAt: date.toLocaleString("GMT"),
-      // questions:
+      questions: [...questionCount],
     };
-    addQuiz(myQuiz).then((response) => console.log(response));
+    addQuiz(myQuiz).then((response) => {
+      quizDone();
+      console.log(response);
+      setTimeout((window.location.href = "/MyQuizzes"), 3000);
+    });
 
     // Further processing can be added here
   };
-
 
   return (
     <div className="baloo flex flex-col justify-center ">
@@ -216,10 +223,9 @@ const CreateQuiz = ({ dropDown }) => {
           setNotification={setNotification}
         />
         <Main
-          myOption={myOption}
           myQuestion={myQuestion}
-          handleSubmit={handleSubmit}
           setModalVisible={() => setModalVisible(true)}
+          buttonDisabled={buttonDisabled}
         />
       </form>
     </div>

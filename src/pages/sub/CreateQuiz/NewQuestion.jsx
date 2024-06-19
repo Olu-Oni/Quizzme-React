@@ -1,33 +1,25 @@
+import { useEffect } from "react";
 import { Trash } from "../../../components/inputs/Icons";
 import { MultiOption, CheckOption, TextOption } from "./Options";
 
-const Option = ({
-  type,
-  optionCount,
-  question,
-  deleteOption,
-  myOption,
-  addOption,
-}) => {
+const Option = ({ type, options, question, deleteOption, updateOption }) => {
   switch (type) {
     case "multiChoice":
       return (
         <div className="flex flex-col">
-          {optionCount
-            .filter((opt) => opt.QuID === question.id)
-            .map((opt, i) => (
-              <MultiOption
-                key={opt.num}
-                option={opt}
-                number={i + 1}
-                deleteOption={deleteOption}
-                myOption={myOption}
-              />
-            ))}
+          {options.map((opt, i) => (
+            <MultiOption
+              key={opt.num}
+              option={opt}
+              number={i + 1}
+              deleteOption={deleteOption}
+              updateOption={updateOption}
+            />
+          ))}
 
           <a
             id="addOption"
-            onClick={addOption}
+            onClick={() => updateOption(null)}
             className={`multiOption text-gray-500 pb-0 hover:text-black`}
           >
             Add new option...
@@ -37,21 +29,19 @@ const Option = ({
     case "checkBox":
       return (
         <div className="flex flex-col">
-          {optionCount
-            .filter((opt) => opt.QuID === question.id)
-            .map((opt, i) => (
-              <CheckOption
-                key={opt.num}
-                option={opt}
-                number={i + 1}
-                deleteOption={deleteOption}
-                myOption={myOption}
-              />
-            ))}
+          {options.map((opt, i) => (
+            <CheckOption
+              key={opt.num}
+              option={opt}
+              number={i + 1}
+              deleteOption={deleteOption}
+              updateOption={updateOption}
+            />
+          ))}
 
           <a
             id="addOption"
-            onClick={addOption}
+            onClick={() => updateOption(null)}
             className={`multiOption text-gray-500 pb-0 hover:text-black ${
               question.type === "text" ? "hidden" : "block"
             }`}
@@ -61,12 +51,11 @@ const Option = ({
         </div>
       );
     case "text":
-      return optionCount.find((opt) => opt.QuID === question.id) ? (
+      return options.length ? (
         <TextOption
           key={question.id}
-          option={optionCount.find((opt) => opt.QuID === question.id)}
-          addOption={addOption}
-          myOption={myOption}
+          option={options[0]}
+          updateOption={updateOption}
         />
       ) : null;
     default:
@@ -74,33 +63,62 @@ const Option = ({
   }
 };
 
-const NewQuestion = ({ myOption, question, myQuestion, deleteQuestion }) => {
-  const { optionCount, setOptionCount } = myOption;
+const NewQuestion = ({ question, myQuestion, deleteQuestion }) => {
   const { questionCount, setQuestionCount } = myQuestion;
 
   const deleteOption = (num) => {
-    const newCount = optionCount.filter((opt) => opt.num !== num);
-    setOptionCount(newCount.map((count, i) => ({ ...count, num: i + 1 })));
+    const newQuestions = questionCount.map((q) =>
+      q.id === question.id
+        ? {
+            ...q,
+            options: q.options
+              .filter((opt) => opt.num !== num)
+              .map((opt, i) => ({ ...opt, num: i + 1 })),
+          }
+        : q
+    );
+    setQuestionCount(newQuestions);
   };
 
-  const addOption = () => {
-    const newOption = {
-      num: optionCount.length + 1,
-      QuID: question.id,
-      content: "",
-      isCorrect: false,
-    };
-    setOptionCount([...optionCount, newOption]);
+  const updateOption = (updatedOption) => {
+    const newQuestions = questionCount.map((q) => {
+      if (q.id === question.id) {
+        let newOptions = updatedOption
+          ? q.options.map((opt) => {
+              if (opt.num === updatedOption.num) {
+                return updatedOption;
+              } else if (q.type === "multiChoice" && updatedOption.isCorrect) {
+                return { ...opt, isCorrect: false };
+              }
+              return opt;
+            })
+          : [
+              ...q.options,
+              {
+                num: q.options.length + 1,
+                content: "",
+                isCorrect: false,
+              },
+            ];
+        const newQuestion = { ...q, options: newOptions };
+        //  check for any correct options available in each questions which
+        const correctOpt = newQuestion.options
+          .filter((opt) => opt.isCorrect === true)
+          .map((opt) => opt.num.toString()); //remove the toString if necessary
+        return { ...newQuestion, correctOption: correctOpt };
+      }
+      return q;
+    });
+    setQuestionCount(newQuestions);
   };
+
   const handleQuestionChange = (e, value) => {
     const newQuestion = { ...question, [value]: e.target.value };
     if (value === "type") {
-      //resetting the options on type change
-      setOptionCount([...optionCount.filter((o) => o.QuID != question.id)]);
-      if (newQuestion.type === "text") {
-        // automatically adding one option for type 'text' change
-        addOption();
-      }
+      newQuestion.options =
+        newQuestion.type === "text"
+          ? [{ num: 1, content: "", isCorrect: true }]
+          : [];
     }
     setQuestionCount(
       questionCount.map((q) => (q.id === question.id ? newQuestion : q))
@@ -133,15 +151,18 @@ const NewQuestion = ({ myOption, question, myQuestion, deleteQuestion }) => {
       </div>
       <Option
         type={question.type}
-        optionCount={optionCount}
+        options={question.options}
         question={question}
         deleteOption={deleteOption}
-        addOption={addOption}
-        myOption={myOption}
+        updateOption={updateOption}
       />
-      <button onClick={()=>deleteQuestion(question.id)} className="mt-4 opacity-60 hover:opacity-100">
+      <button
+        type="button"
+        onClick={() => deleteQuestion(question.id)}
+        className="mt-4 opacity-60 hover:opacity-100"
+      >
         remove Question
-        <Trash/>
+        <Trash />
       </button>
     </div>
   );

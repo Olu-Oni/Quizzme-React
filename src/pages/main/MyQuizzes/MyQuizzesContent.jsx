@@ -1,6 +1,10 @@
+import { useState } from "react";
 import { CreateQuizButton } from "../../../components/MyButtons";
+import { getQuizzesByUser } from "../../../services/quiz";
+import { useEffect } from "react";
 
-const Quizzes = ({ title, num }) => {
+const Quizzes = ({quiz}) => {
+  const { title, questLength }= quiz
   return (
     <div className=" relative w-52 h-48 rounded-lg shadow-gray-500 shadow-lg hover:shadow-gray-400">
       <div className="box-bg-image opacity-80 "></div>
@@ -10,7 +14,7 @@ const Quizzes = ({ title, num }) => {
         {title}
       </h3>
       <h3 className=" mx-5 mt-auto ml-auto text-white backdrop-blur-3xl">
-        {num} questions
+        {questLength} question{questLength>1?'s':''}
       </h3>
       <div className="p-2 m-1 flex justify-between">
         <button className="quiz-button cursor-pointer bg-white py-1 pt-2 px-2 rounded-2xl">
@@ -24,6 +28,14 @@ const Quizzes = ({ title, num }) => {
   );
 };
 const MQContent = () => {
+  const [quizzes, setQuizzes] = useState([]);
+  const UserId = "User1";
+
+  useEffect(() => {
+    getQuizzesByUser(UserId).then((myQuizes) => setQuizzes(myQuizes));
+  }, []);
+
+  console.log(quizzes);
   return (
     <main>
       <label className="searchBar relative block mx-auto w-fit">
@@ -34,18 +46,14 @@ const MQContent = () => {
         />
       </label>
       <div className="quiz-grid m-3 mt-10 grid">
-        <Quizzes title="Mathssss" num={45} />
-        <Quizzes title="Mathssss" num={45} />
-        <Quizzes title="Mathssss" num={45} />
-        <Quizzes title="Mathssss" num={45} />
-        <Quizzes title="Mathssss" num={45} />
-        <Quizzes title="Mathssss" num={45} />
-        <Quizzes title="Mathssss" num={45} />
-        <Quizzes title="Mathssss" num={45} />
-        <Quizzes title="Mathssss" num={45} />
-        <Quizzes title="Mathssss" num={45} />
+        {quizzes.map(quiz=><Quizzes key={quiz.id} quiz={quiz} />)}
+        
       </div>
-      <CreateQuizButton text={'Create a new Quiz'} changeWindow={'/CreateQuiz'} outline={'outline-green-800'}/>
+      <CreateQuizButton
+        text={"Create a new Quiz"}
+        changeWindow={"/CreateQuiz"}
+        outline={"outline-green-800"}
+      />
     </main>
   );
 };

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = `http://localhost:3001`
+const baseURL = `http://localhost:3001`;
 
 // const addQuestion = async(obj)=>{
 //     const response = await axios.post(`${baseURL}/Questions`, obj)
@@ -12,9 +12,20 @@ const baseURL = `http://localhost:3001`
 //     return response.data
 // }
 
-const addQuiz = async(obj)=>{
-    const response = await axios.post(`${baseURL}/Quiz`, obj)
-    return response.data
-}
+const addQuiz = async (obj) => {
+  const response = await axios.post(`${baseURL}/Quizzes`, obj);
+  return response.data;
+};
 
-export {addQuestion,addOption, addQuiz}
+const getQuizzesByUser = async (UserId) => {
+  const response = await axios.get(`${baseURL}/Quizzes/?userId=${UserId}`);
+  return (response.data.map((quiz) => ({
+    id: quiz.id,
+    title: quiz.title,
+    desc: quiz.desc,
+    questLength: quiz.questions.length,
+    time: quiz.time,
+  })));
+};
+
+export { addQuiz, getQuizzesByUser };
