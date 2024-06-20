@@ -1,74 +1,21 @@
-import { useState, useEffect, useReducer } from "react";
+import { useState, useContext } from "react";
 import NewQuestion from "./NewQuestion";
 import Header from "../../../components/Header";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-import { MyButton } from "../../../components/MyButtons";
-import { addQuiz } from "../../../services/quiz";
-import MyModal from "../../../components/Modal";
 import MyNotification from "../../../components/MyNotifications";
-import dayjs from "dayjs";
+import { Modal, Time } from "./OtherSubs";
+import { addQuiz } from "../../../services/quiz";
+import { MyStates } from "../../../App";
 
-// Time component
-const Time = () => (
-  <LocalizationProvider dateAdapter={AdapterDayjs}>
-    <TimePicker
-      name="time"
-      defaultValue={dayjs().hour(0).minute(15)}
-      ampm={false}
-      openTo="hours"
-      views={["hours", "minutes"]}
-      label="Select Time (hh:mm)"
-      format="HH:mm"
-      sx={{
-        minWidth: "110px",
-        maxWidth: "200px",
-        margin: "14px",
-        marginTop: "5px",
-      }}
-    />
-  </LocalizationProvider>
-);
-
-//Modal Component
-const Modal = ({ modalVisible, setModalVisible }) => {
-  return (
-    <MyModal modalVisible={modalVisible}>
-      <div className="flex flex-col justify-around relative min-w-72 w-[55%] min-h-96 bg-white border border-gray-300 rounded-xl px-8">
-        <h1 className="text-center">
-          Are you sure you want to Submit this quiz?
-        </h1>
-        <div className="flex justify-center gap-4 md:gap-20">
-          <button
-            type="button"
-            onClick={setModalVisible}
-            className={`text-slate-400 hover:text-black hover:outline-2 outline-slate-300`}
-          >
-            Continue Editing
-          </button>
-          <button
-            type="submit"
-            className={`text-slate-400 hover:text-black hover:outline-2 outline-slate-300`}
-          >
-            Create my Quizz
-          </button>
-        </div>
-      </div>
-    </MyModal>
-  );
-};
 
 // Main component
-const Main = ({ myQuestion, setModalVisible, buttonDisabled }) => {
+const Main = ({ myQuiz, myQuestion, setModalVisible, buttonDisabled }) => {
   const { questionCount, setQuestionCount } = myQuestion;
-
+  const { quiz, setters } = myQuiz;
   //check if all inputs are filled
-  const [quizTitle, setTitle] = useState("");
   // const [quizValid, setQuizValid] = useState(false);
 
   const handleCreate = () => {
-    const titleValid = quizTitle.split(" ").join("") !== "";
+    const titleValid = quiz.title.split(" ").join("") !== "";
 
     const questionsValid = questionCount.every(
       (question) => question.content.split(" ").join("") !== ""
@@ -107,7 +54,7 @@ const Main = ({ myQuestion, setModalVisible, buttonDisabled }) => {
 
   return (
     <main className="flex flex-col items-center lg:mx-36 mb-5 px-4 sm:px-10 md:px-14 lg:px-[10%]">
-      <h1 className="text-green-900">Create your own custom Quiz</h1>
+      <h1 className="text-green-900">Manage your Quiz</h1>
       <div className="flex flex-col bg-white rounded-t-3xl mt-5 w-full min-h-[200px] shadow-lg p-4">
         <div className="flex max-sm:flex-col justify-between">
           <input
@@ -115,15 +62,17 @@ const Main = ({ myQuestion, setModalVisible, buttonDisabled }) => {
             name="title"
             required
             placeholder="Quiz Title*"
-            value={quizTitle}
-            onChange={(e) => setTitle(e.target.value)}
+            value={quiz.title}
+            onChange={(e) => setters.setQuizTitle(e.target.value)}
             className="focus:bg-slate-200 min-w-48 w-[50%] m-3 p-2 pb-0 bg-opacity-35 focus:border-b border-black outline-none text-3xl placeholder:text-gray-500"
           />
-          <Time />
+          <Time myQuiz={myQuiz} />
         </div>
         <textarea
           name="desc"
           placeholder="Quiz Description"
+          value={quiz.desc}
+          onChange={(e) => setters.setQuizDesc(e.target.value)}
           className="bg-slate-100 max-h-[50%] m-3 p-2 pb-0 bg-opacity-35 border-b border-black outline-none text-lg resize-none"
         />
       </div>
@@ -151,7 +100,7 @@ const Main = ({ myQuestion, setModalVisible, buttonDisabled }) => {
           className={`flex bg-green-300 rounded-3xl mt-5 p-2 w-[90%] min-h-[50px] shadow-lg hover:text-black hover:bg-green-400 hover:scale-105 cursor-pointer`}
         >
           <p id="addOption" className=" m-auto pb-0 text-xl">
-            Create
+            Update
           </p>
         </button>
       ) : null}
@@ -178,14 +127,19 @@ const Notification = ({ myNotify }) => {
 const CreateQuiz = ({ dropDown }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [notification, setNotification] = useState("");
-  const [questionCount, setQuestionCount] = useState([]);
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
-  const myQuestion = { questionCount, setQuestionCount };
+  const { state, setters } = useContext(MyStates);
+
+  const myQuestion = {
+    questionCount: state.myQuiz.questions,
+    setQuestionCount: setters.setQuestions,
+  };
+  const myQuiz = { quiz: state.myQuiz, setters };
   const myNotify = { notification, setNotification };
 
   const quizDone = () => {
-    setModalVisible();
+    // setModalVisible();
     setNotification("Quiz submitted!!!");
     setButtonDisabled(true);
   };
@@ -223,6 +177,7 @@ const CreateQuiz = ({ dropDown }) => {
           setNotification={setNotification}
         />
         <Main
+          myQuiz={myQuiz}
           myQuestion={myQuestion}
           setModalVisible={() => setModalVisible(true)}
           buttonDisabled={buttonDisabled}
