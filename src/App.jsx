@@ -1,86 +1,47 @@
 import { createContext, useReducer, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import NoPath from "./pages/main/NoPath";
-import Welcome from "./pages/main/Welcome";
-import Login from "./pages/main/Login";
-import Home from "./pages/main/Home/Home";
-import Quizz_me from "./pages/main/Quizz_me/Quizz_me";
-import Performance from "./pages/main/Performance/Perfomance";
-import MyQuizzes from "./pages/main/MyQuizzes/MyQuizzes";
-import TakeQuiz from "./pages/sub/TakeQuiz/TakeQuiz";
-import CreateQuiz from "./pages/sub/CreateQuiz/CreateQuiz";
 import { ACTIONS, reducer } from "./reducers/reducer";
-import ManageQuiz from "./pages/sub/CreateQuiz/ManageQuiz";
 import dayjs from "dayjs";
+import MyRoutes from "./routes/MyRoutes";
+import { BrowserRouter } from "react-router-dom";
 
 export const MyStates = createContext();
 
-const App = () => {
-  const [state, dispatch] = useReducer(reducer, {
-    myQuiz: {
-      title: "",
-      desc: "",
-      time: dayjs().hour(0).minute(15).format("HH:mm"),
-      createdAt: "",
-      questions: [],
-    },
-  });
+const initialState = {
+  myQuiz: {
+    title: "",
+    desc: "",
+    time: '',
+    createdAt: "",
+    questions: [],
+  },
+  isOpen:false
+};
 
-  const setQuiz = (value) =>
-    dispatch({ type: ACTIONS.SET_QUIZ, payload: value });
-  const setQuizTime = (value) =>
-    dispatch({ type: ACTIONS.SET_QUIZ_TIME, payload: value });
-  const setQuizTitle = (value) =>
-    dispatch({ type: ACTIONS.SET_QUIZ_TITLE, payload: value });
-  const setQuizDesc = (value) =>
-    dispatch({ type: ACTIONS.SET_QUIZ_DESC, payload: value });
-  const setQuestions = (value) =>
-    dispatch({ type: ACTIONS.SET_QUESTIONS, payload: value });
-  // const setCurrentQuiz = (value) => dispatch({type:ACTIONS.SET_CURRENT_QUIZ, payload:value})
+const App = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
   const setters = {
-    setQuiz,
-    setQuizTime,
-    setQuizTitle,
-    setQuizDesc,
-    setQuestions,
+    setQuiz: (value) => dispatch({ type: ACTIONS.SET_QUIZ, payload: value }),
+    setQuizTime: (value) =>
+      dispatch({ type: ACTIONS.SET_QUIZ_TIME, payload: value }),
+    setQuizTitle: (value) =>
+      dispatch({ type: ACTIONS.SET_QUIZ_TITLE, payload: value }),
+    setQuizDesc: (value) =>
+      dispatch({ type: ACTIONS.SET_QUIZ_DESC, payload: value }),
+    setQuestions: (value) =>
+      dispatch({ type: ACTIONS.SET_QUESTIONS, payload: value }),
+    setIsOpen: (value)=>
+      dispatch({ type: ACTIONS.SET_ISOPEN, payload: value }),
+
   };
- const [isOpen, setIsOpen] = useState(false);
+
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div className="font-urbanist max-sm:text-lg  min-h-dvh">
+    <div className="font-urbanist max-sm:text-lg min-h-dvh">
       <MyStates.Provider value={{ state, setters }}>
         <BrowserRouter>
-          <Routes>
-            <Route index element={<Welcome />} />
-            <Route path="/Welcome" element={<Welcome />} />
-            <Route path="/Login" element={<Login />} />
-            <Route
-              path="/home"
-              element={<Home dropDown={{ isOpen, setIsOpen }} />}
-            />
-            <Route
-              path="/MyQuizzes"
-              element={<MyQuizzes dropDown={{ isOpen, setIsOpen }} />}
-            />
-            <Route
-              path="/Performance"
-              element={<Performance dropDown={{ isOpen, setIsOpen }} />}
-            />
-            <Route
-              path="/Quizz_me"
-              element={<Quizz_me dropDown={{ isOpen, setIsOpen }} />}
-            />
-            <Route path="/TakeQuiz" element={<TakeQuiz />} />
-            <Route
-              path="/CreateQuiz"
-              element={<CreateQuiz dropDown={{ isOpen, setIsOpen }} />}
-            />
-            <Route
-              path="/ManageQuiz/:id"
-              element={<ManageQuiz dropDown={{ isOpen, setIsOpen }} />}
-            />
-            <Route path="/Performance" element={<Performance />} />
-            <Route path="*" element={<NoPath />} />
-          </Routes>
+          <MyRoutes isOpen={isOpen} setIsOpen={setIsOpen} />
         </BrowserRouter>
       </MyStates.Provider>
     </div>

@@ -8,7 +8,7 @@ import MyModal from "../../../components/Modal";
 // Time component
 export const Time = ({ myQuiz }) => {
   const { quiz, setters } = myQuiz;
-  const initialTime = quiz.time ? dayjs(quiz.time, "HH:mm") : null;
+  const initialTime = quiz.time ? dayjs(quiz.time, "HH:mm") :  dayjs().hour(0).minute(15);
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <TimePicker

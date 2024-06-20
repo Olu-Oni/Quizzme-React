@@ -12,7 +12,6 @@ const Main = ({ myQuiz, myQuestion, setModalVisible, buttonDisabled }) => {
   const { questionCount, setQuestionCount } = myQuestion;
   const { quiz, setters } = myQuiz;
   //check if all inputs are filled
-  // const [quizValid, setQuizValid] = useState(false);
 
   const handleCreate = () => {
     const titleValid = quiz.title.split(" ").join("") !== "";
