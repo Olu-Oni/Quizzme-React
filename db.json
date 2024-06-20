@@ -4,22 +4,22 @@
       "id": "8529",
       "userId": "User1",
       "title": "First Quiz",
-      "desc": "Sthufff",
+      "desc": "Sthufff222",
       "time": "00:15",
-      "createdAt": "6/19/2024, 3:03:47 PM",
+      "createdAt": "6/20/2024, 6:38:40 PM",
       "questions": [
         {
           "id": "Qu1",
           "content": "First Question innit?",
           "type": "multiChoice",
           "correctOption": [
-            "1"
+            "3"
           ],
           "options": [
             {
               "num": 1,
               "content": "Yup",
-              "isCorrect": true
+              "isCorrect": false
             },
             {
               "num": 2,
@@ -29,7 +29,7 @@
             {
               "num": 3,
               "content": "I dunno",
-              "isCorrect": false
+              "isCorrect": true
             }
           ]
         }
@@ -39,27 +39,27 @@
       "id": "cdce",
       "userId": "User1",
       "title": "me",
-      "desc": "abourt me",
+      "desc": "about me 2",
       "time": "00:15",
-      "createdAt": "6/19/2024, 3:09:40 PM",
+      "createdAt": "6/20/2024, 7:13:56 PM",
       "questions": [
         {
           "id": "Qu1",
           "content": "my name",
           "type": "multiChoice",
           "correctOption": [
-            "1"
+            "2"
           ],
           "options": [
             {
               "num": 1,
               "content": "goat",
-              "isCorrect": true
+              "isCorrect": false
             },
             {
               "num": 2,
               "content": "wole",
-              "isCorrect": false
+              "isCorrect": true
             },
             {
               "num": 3,
@@ -90,6 +90,134 @@
               "num": 1,
               "content": "sss",
               "isCorrect": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2b39",
+      "title": "SCIENCE",
+      "desc": "COMPUTER SCIENCE",
+      "time": "00:15",
+      "createdAt": "6/20/2024, 4:58:11 PM",
+      "questions": [
+        {
+          "id": "Qu1",
+          "userId": "User1",
+          "content": "How Handsome is Gerald",
+          "type": "multiChoice",
+          "correctOption": [
+            "3"
+          ],
+          "options": [
+            {
+              "num": 1,
+              "content": "KIND of",
+              "isCorrect": false
+            },
+            {
+              "num": 2,
+              "content": "VERY",
+              "isCorrect": false
+            },
+            {
+              "num": 3,
+              "content": "Extremely",
+              "isCorrect": true
+            },
+            {
+              "num": 4,
+              "content": "very extremely",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "id": "Qu2",
+          "userId": "User1",
+          "content": "How much of question 1 was a lie?",
+          "type": "multiChoice",
+          "correctOption": [
+            "1"
+          ],
+          "options": [
+            {
+              "num": 1,
+              "content": "KIND of",
+              "isCorrect": true
+            },
+            {
+              "num": 2,
+              "content": "VERY",
+              "isCorrect": false
+            },
+            {
+              "num": 3,
+              "content": "Extremely",
+              "isCorrect": false
+            },
+            {
+              "num": 4,
+              "content": "very extremely",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "id": "Qu3",
+          "userId": "User1",
+          "content": "How wrong was Question 2",
+          "type": "multiChoice",
+          "correctOption": [
+            "2"
+          ],
+          "options": [
+            {
+              "num": 1,
+              "content": "Very wrong",
+              "isCorrect": false
+            },
+            {
+              "num": 2,
+              "content": "So wrong",
+              "isCorrect": true
+            },
+            {
+              "num": 3,
+              "content": "i don't know",
+              "isCorrect": false
+            },
+            {
+              "num": 4,
+              "content": "all of the above",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "id": "Qu4",
+          "userId": "User1",
+          "content": "Question 4\nWhat is Computer science",
+          "type": "multiChoice",
+          "correctOption": [
+            "2"
+          ],
+          "options": [
+            {
+              "num": 1,
+              "content": "a university course",
+              "isCorrect": false
+            },
+            {
+              "num": 2,
+              "content": "the best course in the world",
+              "isCorrect": true
+            },
+            {
+              "num": 3,
+              "content": "the most in-demand course of all time",
+              "isCorrect": false
             }
           ]
         }

@@ -1,10 +1,12 @@
-import { useState } from "react";
-import { CreateQuizButton } from "../../../components/MyButtons";
+import { useContext, useState } from "react";
+import { CreateQuizButton, MyButton } from "../../../components/MyButtons";
 import { getQuizzesByUser } from "../../../services/quiz";
 import { useEffect } from "react";
 
 const Quizzes = ({quiz}) => {
   const { title, questLength }= quiz
+
+ 
   return (
     <div className=" relative w-52 h-48 rounded-lg shadow-gray-500 shadow-lg hover:shadow-gray-400">
       <div className="box-bg-image opacity-80 "></div>
@@ -20,9 +22,8 @@ const Quizzes = ({quiz}) => {
         <button className="quiz-button cursor-pointer bg-white py-1 pt-2 px-2 rounded-2xl">
           Take Quiz
         </button>
-        <button className="quiz-button cursor-pointer bg-white py-1 pt-2 px-2 rounded-2xl text-">
-          Manage
-        </button>
+        <MyButton text={'Manage'} changeWindow={`/ManageQuiz/${quiz.id}`} extraClass="quiz-button cursor-pointer bg-white py-1 pt-2 px-2 rounded-2xl text-"/>
+          
       </div>
     </div>
   );

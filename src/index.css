@@ -255,3 +255,11 @@ body {
 .tooltip:hover .tooltiptext {
   @apply visible opacity-100;
 }
+
+/* Notification */
+.notificationContent{
+  @apply mt-4 mx-auto text-base sm:text-xl text-green-800 
+}
+.notificationContent~*{
+  @apply mt-4 sm:mt-6 mx-auto text-sm sm:text-lg text-green-600 
+}
