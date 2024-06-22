@@ -1,10 +1,14 @@
-import {useState } from "react";
+import {useContext, useEffect, useState } from "react";
 import backIcon from "../../../../images/arrow.svg";
 import {MyButton} from "../../../components/MyButtons";
 import MultiChoice from "./MultiChoice";
 import StackedCards from "./StackedCards";
 import Timer from "./Timer";
 import MyModal from "../../../components/Modal";
+import { MyStates } from "../../../App";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+import { getQuizById } from "../../../services/quiz";
 
 const Header = ({ startQuiz, initialMinutes, initialSeconds }) => {
   return (
@@ -24,10 +28,11 @@ const Header = ({ startQuiz, initialMinutes, initialSeconds }) => {
 };
 
 const Main = ({ myCards, changeCards, questions }) => {
+  
   return (
     <main className="flex-1 flex flex-col">
       <div className="mb-6 md:mb-16 text-xl md:text-2xl font-bold">
-        {`${myCards.currentCardIndex+1}/${questions.length}`}
+        {`Question ${myCards.currentIndex+1}/${questions.length}`}
       </div>
       <div className="flex-1 grid md:grid-cols-custom-1 max-md:grid-rows-custom-1 gap-10">
         <StackedCards
@@ -36,7 +41,7 @@ const Main = ({ myCards, changeCards, questions }) => {
           changeCards={changeCards}
         />
         <div className="flex overflow-y-auto overflow-x-hidden">
-          <MultiChoice />
+          {questions[myCards.currentIndex]?<MultiChoice options={questions[myCards.currentIndex].options}/>:<h1>loading</h1>}
         </div>
       </div>
     </main>
@@ -67,37 +72,63 @@ const Modal = ({handleStartQuiz, modalVisible}) =>{
   )
 }
 const TakeQuiz = () => {
+  const {id} = useParams()
+  
+  const {data:quiz, isLoading, isSuccess} = useQuery({
+    queryFn: ()=>getQuizById(id),
+    queryKey: ['quiz', id]
+  })
+  
   const [modalVisible, setModalVisibility] = useState(true);
-  const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [startQuiz, setStartQuiz] = useState(false);
-  const questions = [
-    { id: 1, question: "What is React?" },
-    { id: 2, question: "What is Tailwind CSS?" },
-    { id: 3, question: "How do you use hooks in React?" },
-    // Add more questions as needed
-  ];
+  
+  const {state, setters} = useContext(MyStates)
+  useEffect(() => {
+    if (isSuccess) {
+      setters.setQuiz(quiz);
+    }
+  }, [isSuccess, quiz]);
+  
+  //My performance paramsa
+  // userId,
+  //   quizId,
+  //   totalAttempts,
+  //   averageScore,
+  //   attemptedAt,
+  //   chosenQuestions: [],
+  //   correctQuestions: [],
+  const questions = state.myQuiz.questions
 
-  const myCards = { currentCardIndex, setCurrentCardIndex };
+  // const questions = [
+  //   { id: 1, question: "What is React?" },
+  //   { id: 2, question: "What is Tailwind CSS?" },
+  //   { id: 3, question: "How do you use hooks in React?" },
+  //   // Add more questions as needed
+  // ];  
+
+  const myCards = { currentIndex, setCurrentIndex };
 
   const changeCards = {
     handleNext: () => {
-      setCurrentCardIndex((prevIndex) =>
+      setCurrentIndex((prevIndex) =>
         prevIndex < questions.length - 1 ? prevIndex + 1 : prevIndex
       );
     },
     handlePrev: () => {
-      setCurrentCardIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : prevIndex));
+      setCurrentIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : prevIndex));
     },
   };
 
   const handleStartQuiz = () => {
-    setStartQuiz(true);
     setModalVisibility(false);
+    setStartQuiz(true);
   };
+
    return (
-    <div>
+    <div className="baloo">
       <Modal modalVisible={modalVisible} handleStartQuiz={handleStartQuiz}/>
-      <div className="baloo h-dvh flex flex-col py-4 px-6 md:px-14 lg:px-[10%] text-center">
+      <div className="h-dvh flex flex-col py-4 px-6 md:px-14 lg:px-[10%] text-center">
         <Header
           startQuiz={startQuiz}
           initialMinutes={1}

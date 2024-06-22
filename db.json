@@ -6,7 +6,7 @@
       "title": "First Quiz",
       "desc": "Sthufff222",
       "time": "00:15",
-      "createdAt": "6/20/2024, 6:38:40 PM",
+      "createdAt": "6/21/2024, 8:46:12 AM",
       "questions": [
         {
           "id": "Qu1",
@@ -100,12 +100,12 @@
       "title": "SCIENCE",
       "desc": "COMPUTER SCIENCE",
       "time": "00:15",
-      "createdAt": "6/20/2024, 4:58:11 PM",
+      "createdAt": "6/22/2024, 6:51:23 PM",
       "questions": [
         {
           "id": "Qu1",
           "userId": "User1",
-          "content": "How Handsome is Gerald",
+          "content": "How handsome is Gerald",
           "type": "multiChoice",
           "correctOption": [
             "3"
@@ -198,7 +198,7 @@
         {
           "id": "Qu4",
           "userId": "User1",
-          "content": "Question 4\nWhat is Computer science",
+          "content": "What is Computer science",
           "type": "multiChoice",
           "correctOption": [
             "2"
@@ -218,6 +218,31 @@
               "num": 3,
               "content": "the most in-demand course of all time",
               "isCorrect": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4e82",
+      "title": "Test shiii",
+      "desc": "Yo mama ]",
+      "time": "",
+      "createdAt": "6/22/2024, 1:13:31 PM",
+      "questions": [
+        {
+          "id": "Qu1",
+          "userId": "User1",
+          "content": "eegwee",
+          "type": "multiChoice",
+          "correctOption": [
+            "1"
+          ],
+          "options": [
+            {
+              "num": 1,
+              "content": "fff",
+              "isCorrect": true
             }
           ]
         }

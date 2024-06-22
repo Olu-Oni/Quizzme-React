@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import homeLogo from "../../images/logo-orange.png";
 import profileImg from "../../images/profile-green.png";
-import { useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
 const SlideMenu = ({ navNames,dropDown }) => {
   const {isOpen, setIsOpen} = dropDown
@@ -55,12 +55,12 @@ const NavItem = ({ name }) => {
       className={
         location.pathname === `/${name}` ? "active nav_item" : "nav_item "
       }
-    >
-      <a href={`/${name}`}>
+    > 
+      <Link to={`/${name}`}>
         <span></span>
         {name.includes("_") ? name.replace("_", " ") : name}{" "}
         <hr className="nav_underline max-md:hidden" />
-      </a>
+      </Link>
     </li>
   );
 };
@@ -84,10 +84,13 @@ const NavBar = ({dropDown}) => {
 
 const Header = ({dropDown}) => {
   return (
-    <header className="flex-col  my-7 px-5 md:px-[5%]  flex-grow">
+    <>
+    <header className="baloo flex-col  my-7 px-5 md:px-[5%]">
       <TopBar />
       <NavBar dropDown={dropDown}/>
     </header>
+    <Outlet/>
+    </>
   );
 };
 

@@ -11,34 +11,12 @@ const Choice = ({ name, value }) => {
   );
 };
 
-const MultiChoice = () => {
-  const choices = [
-    {
-      name: "Q1",
-      value: "1986",
-    },
-    {
-      name: "Q1",
-      value: "1994",
-    },
-    {
-      name: "Q1",
-      value: "2002",
-    },
-    {
-      name: "Q1",
-      value: "2010",
-    },
-    {
-      name: "Q1",
-      value: "2077",
-    },
-  ];
+const MultiChoice = ({options}) => {
 
   return (
     <div className="flex flex-col gap-4 md:gap-6 m-auto w-[70%] md:w-full min-w-[250px] max-w-[400px] py-1">
-      {choices.map((choice) => (
-        <Choice key={choice.value} name={choice.name} value={choice.value} />
+      {options.map((option) => (
+        <Choice key={option.num} name={`${option.num}`} value={option.content} />
       ))}
     </div>
   );

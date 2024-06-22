@@ -180,7 +180,6 @@ const ManageQuiz = ({ dropDown }) => {
   return (
     <div className="baloo flex flex-col justify-center ">
       <Notification myNotify={myNotify} />
-      <Header dropDown={dropDown} />
       <form >
         <Modal
           updateQuiz={()=>updateQuiz(state.myQuiz)}

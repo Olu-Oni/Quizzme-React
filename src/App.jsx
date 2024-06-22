@@ -1,8 +1,6 @@
 import { createContext, useReducer, useState } from "react";
 import { ACTIONS, reducer } from "./reducers/reducer";
-import dayjs from "dayjs";
 import MyRoutes from "./routes/MyRoutes";
-import { BrowserRouter } from "react-router-dom";
 
 export const MyStates = createContext();
 
@@ -10,11 +8,12 @@ const initialState = {
   myQuiz: {
     title: "",
     desc: "",
-    time: '',
+    time: "",
     createdAt: "",
     questions: [],
   },
-  isOpen:false
+  myPerformance: {},
+  isOpen: false,
 };
 
 const App = () => {
@@ -30,19 +29,16 @@ const App = () => {
       dispatch({ type: ACTIONS.SET_QUIZ_DESC, payload: value }),
     setQuestions: (value) =>
       dispatch({ type: ACTIONS.SET_QUESTIONS, payload: value }),
-    setIsOpen: (value)=>
+    setIsOpen: (value) =>
       dispatch({ type: ACTIONS.SET_ISOPEN, payload: value }),
-
   };
 
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="font-urbanist max-sm:text-lg min-h-dvh">
+    <div className="font-urbanist max-sm:text-lg min-h-dvh flex flex-col">
       <MyStates.Provider value={{ state, setters }}>
-        <BrowserRouter>
-          <MyRoutes isOpen={isOpen} setIsOpen={setIsOpen} />
-        </BrowserRouter>
+        <MyRoutes isOpen={isOpen} setIsOpen={setIsOpen} />
       </MyStates.Provider>
     </div>
   );

@@ -1,10 +1,8 @@
-import Header from "../../../components/Header";
 import Content from "./MyQuizzesContent"
 
-const MyQuizzes = ({dropDown}) => {
+const MyQuizzes = () => {
   return (
-    <div className="baloo flex flex-col justify-center px-4 sm:px-10 md:px-14 lg:px-[10%]">
-      <Header  dropDown={dropDown}/>
+    <div className="baloo flex flex-col justify-center px-4 md:px-14 lg:px-[10%]">
       <Content/>
     </div>
   );

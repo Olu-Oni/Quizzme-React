@@ -5,20 +5,20 @@ const Card = ({ question, shadow }) => (
   );
 const StackedCards = ({questions, myCards, changeCards}) => {
 
-  const {currentCardIndex} = myCards 
+  const {currentIndex} = myCards 
   return (
     <div className="relative w-full h-full">
       {questions.map((q, index) => (
         <div
           key={q.id}
           className={`absolute w-full h-full transition-transform duration-[700ms] ease-in-out ${
-            index < currentCardIndex
+            index < currentIndex
               ? "transform sm:-translate-x-[100%] -translate-x-[120%]"
               : "transform translate-x-0"
           }`}
           style={{ zIndex: questions.length - index }}
         >
-          <Card question={q.question} shadow={ (index === currentCardIndex || index === currentCardIndex+1)
+          <Card question={q.content} shadow={ (index === currentIndex || index === currentIndex+1)
               ? "shadow-xl"
               : "shadow-none"}/>
         </div>

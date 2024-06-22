@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
 import NewQuestion from "./NewQuestion";
-import Header from "../../../components/Header";
 import MyNotification from "../../../components/MyNotifications";
 import { Modal, Time } from "./OtherSubs";
 import { addQuiz } from "../../../services/quiz";
@@ -53,7 +52,7 @@ const Main = ({ myQuiz, myQuestion, setModalVisible, buttonDisabled }) => {
 
   return (
     <main className="flex flex-col items-center lg:mx-36 mb-5 px-4 sm:px-10 md:px-14 lg:px-[10%]">
-      <h1 className="text-green-900">Manage your Quiz</h1>
+      <h1 className="text-green-900">Create your Quiz</h1>
       <div className="flex flex-col bg-white rounded-t-3xl mt-5 w-full min-h-[200px] shadow-lg p-4">
         <div className="flex max-sm:flex-col justify-between">
           <input
@@ -99,7 +98,7 @@ const Main = ({ myQuiz, myQuestion, setModalVisible, buttonDisabled }) => {
           className={`flex bg-green-300 rounded-3xl mt-5 p-2 w-[90%] min-h-[50px] shadow-lg hover:text-black hover:bg-green-400 hover:scale-105 cursor-pointer`}
         >
           <p id="addOption" className=" m-auto pb-0 text-xl">
-            Update
+            Create
           </p>
         </button>
       ) : null}
@@ -123,7 +122,7 @@ const Notification = ({ myNotify }) => {
 };
 
 // CreateQuiz component
-const CreateQuiz = ({ dropDown }) => {
+const CreateQuiz = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [notification, setNotification] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -143,23 +142,17 @@ const CreateQuiz = ({ dropDown }) => {
     setButtonDisabled(true);
   };
 
-  const date = new Date();
-
   const handleSubmit = (e) => {
+    const date = new Date();
     e.preventDefault();
-    const formData = new FormData(e.target);
-
-    const myQuiz = {
-      title: formData.get("title"),
-      desc: formData.get("desc"),
-      time: formData.get("time"),
+     const newQuiz = {
+      ...state.myQuiz,
       createdAt: date.toLocaleString("GMT"),
-      questions: [...questionCount],
     };
-    addQuiz(myQuiz).then((response) => {
+    addQuiz(newQuiz).then((response) => {
       quizDone();
       console.log(response);
-      setTimeout((window.location.href = "/MyQuizzes"), 3000);
+      setTimeout(()=>(window.location.href = "/MyQuizzes"), 3000);
     });
 
     // Further processing can be added here
@@ -168,7 +161,6 @@ const CreateQuiz = ({ dropDown }) => {
   return (
     <div className="baloo flex flex-col justify-center ">
       <Notification myNotify={myNotify} />
-      <Header dropDown={dropDown} />
       <form onSubmit={handleSubmit}>
         <Modal
           modalVisible={modalVisible}
