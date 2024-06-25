@@ -5,6 +5,7 @@ const ACTIONS = {
   SET_QUIZ_TITLE: "SET_QUIZ_TITLE",
   SET_QUIZ_DESC: "SET_QUIZ_DESC",
   SET_ISOPEN: "SET_ISOPEN",
+  SET_PERFORMANCE: "SET_PERFORMANCE",
 };
 
 const reducer = (state, action) => {
@@ -12,7 +13,7 @@ const reducer = (state, action) => {
     case ACTIONS.SET_QUIZ:
       return { ...state, myQuiz: action.payload };
     case ACTIONS.SET_QUIZ_TIME: {
-      const newQuiz = { ...state.myQuiz, time: action.payload.format('HH:mm') };
+      const newQuiz = { ...state.myQuiz, time: action.payload.format("HH:mm") };
       return { ...state, myQuiz: newQuiz };
     }
     case ACTIONS.SET_QUIZ_TITLE: {
@@ -27,8 +28,13 @@ const reducer = (state, action) => {
       const newQuiz = { ...state.myQuiz, questions: action.payload };
       return { ...state, myQuiz: newQuiz };
     }
+    // state myPerformance
+    case ACTIONS.SET_PERFORMANCE: {
+      return { ...state, performance: action.payload };
+    }
     //state isOpen
-    case ACTIONS.SET_ISOPEN:return {...state, isOpen: action.payload }
+    case ACTIONS.SET_ISOPEN:
+      return { ...state, isOpen: action.payload };
 
     // case ACTIONS.SET_CURRENT_QUIZ:
     //   return { ...state, currentQuiz: action.payload };
@@ -37,6 +43,5 @@ const reducer = (state, action) => {
       return state;
   }
 };
-
 
 export { ACTIONS, reducer };

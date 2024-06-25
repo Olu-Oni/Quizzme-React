@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = `http://localhost:3001`;
+export const baseURL = `http://localhost:3001`;
 
 // const addQuestion = async(obj)=>{
 //     const response = await axios.post(`${baseURL}/Questions`, obj)
@@ -43,4 +43,9 @@ const getQuizById = async (quizId) => {
   return response.data;
 };
 
-export { addQuiz, changeQuiz, getQuizzesByUser, getQuizById };
+const addPerformance = async (obj) => {
+  const response = await axios.post(`${baseURL}/Performance`, obj);
+  return response.data;
+};
+
+export {addQuiz, changeQuiz, getQuizzesByUser, getQuizById, addPerformance };

@@ -12,7 +12,7 @@ const initialState = {
     createdAt: "",
     questions: [],
   },
-  myPerformance: {},
+  performance: {},
   isOpen: false,
 };
 
@@ -31,6 +31,9 @@ const App = () => {
       dispatch({ type: ACTIONS.SET_QUESTIONS, payload: value }),
     setIsOpen: (value) =>
       dispatch({ type: ACTIONS.SET_ISOPEN, payload: value }),
+    setPerformance: (value) =>
+      dispatch({ type: ACTIONS.SET_PERFORMANCE, payload: value }),
+  
   };
 
   const [isOpen, setIsOpen] = useState(false);

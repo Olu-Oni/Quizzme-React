@@ -1,4 +1,7 @@
 {
+  "Performance": [
+   
+  ],
   "Quizzes": [
     {
       "id": "8529",
@@ -100,7 +103,7 @@
       "title": "SCIENCE",
       "desc": "COMPUTER SCIENCE",
       "time": "00:15",
-      "createdAt": "6/22/2024, 6:51:23 PM",
+      "createdAt": "6/22/2024, 7:58:10 PM",
       "questions": [
         {
           "id": "Qu1",
@@ -218,6 +221,49 @@
               "num": 3,
               "content": "the most in-demand course of all time",
               "isCorrect": false
+            }
+          ]
+        },
+        {
+          "id": "Qu5",
+          "userId": "User1",
+          "content": "Basic CheckBox for testing",
+          "type": "checkBox",
+          "correctOption": [
+            "2",
+            "3"
+          ],
+          "options": [
+            {
+              "num": 1,
+              "content": "Rando option 1",
+              "isCorrect": false
+            },
+            {
+              "num": 2,
+              "content": "Extra rando opt 2",
+              "isCorrect": true
+            },
+            {
+              "num": 3,
+              "content": "Just for good measure....3",
+              "isCorrect": true
+            }
+          ]
+        },
+        {
+          "id": "Qu6",
+          "userId": "User1",
+          "content": "Basic Text question for ....testing too",
+          "type": "text",
+          "correctOption": [
+            "1"
+          ],
+          "options": [
+            {
+              "num": 1,
+              "content": "Random text answer, yup, yupp",
+              "isCorrect": true
             }
           ]
         }

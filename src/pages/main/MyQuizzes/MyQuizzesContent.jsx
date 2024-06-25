@@ -36,8 +36,7 @@ const MQContent = () => {
   }, []);
 
   const searchedQuiz = quizzes.filter((q=> q.title.toLowerCase().includes(searchText.toLowerCase().split(" ").join("")))) 
-  console.log(searchedQuiz)
-
+  
   return (
     <main>
       <label className="searchBar relative block mx-auto w-fit">

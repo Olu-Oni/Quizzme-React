@@ -1,3 +1,6 @@
+import { useNavigate } from "react-router-dom";
+
+
 const MyButton = ({
   text,
   extraClass,
@@ -7,11 +10,13 @@ const MyButton = ({
   outline,
   type,
 }) => {
+  const navigate = useNavigate()
+
   return (
     <button
       type={type ? type : "button"}
       onClick={
-        changeWindow ? () => (window.location.href = changeWindow) : onClick
+        changeWindow ? () => navigate(changeWindow) : onClick
       }
       className={`py-1 px-3 rounded-2xl ${
         hover ? "hover:brightness-150" : "hover:bg-opacity-80"
@@ -30,12 +35,14 @@ const CreateQuizButton = ({
   hover,
   outline,
 }) => {
+  const navigate = useNavigate()
+
   return (
     <div className="createButton flex  fixed z-30 bottom-5 right-4 w-fit p-2  pr-0 ">
       <div className=" relative left-5 top-1 p-1">
         <button
           onClick={
-            changeWindow ? () => (window.location.href = changeWindow) : onClick
+            changeWindow ? () => navigate(changeWindow) : onClick
           }
           className="bg-green-800  text-white py-2 px-5 rounded-s-3xl w-fit- hover:brightness-150 hover:outline outline-white shadow-md"
         >
