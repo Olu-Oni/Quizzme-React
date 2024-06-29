@@ -1,7 +1,5 @@
 {
-  "Performance": [
-   
-  ],
+  "Performance": [],
   "Quizzes": [
     {
       "id": "8529",
@@ -9,7 +7,7 @@
       "title": "First Quiz",
       "desc": "Sthufff222",
       "time": "00:15",
-      "createdAt": "6/21/2024, 8:46:12 AM",
+      "createdAt": "6/25/2024, 12:25:12 PM",
       "questions": [
         {
           "id": "Qu1",
@@ -35,55 +33,11 @@
               "isCorrect": true
             }
           ]
-        }
-      ]
-    },
-    {
-      "id": "cdce",
-      "userId": "User1",
-      "title": "me",
-      "desc": "about me 2",
-      "time": "00:15",
-      "createdAt": "6/20/2024, 7:13:56 PM",
-      "questions": [
+        },
         {
-          "id": "Qu1",
-          "content": "my name",
-          "type": "multiChoice",
-          "correctOption": [
-            "2"
-          ],
-          "options": [
-            {
-              "num": 1,
-              "content": "goat",
-              "isCorrect": false
-            },
-            {
-              "num": 2,
-              "content": "wole",
-              "isCorrect": true
-            },
-            {
-              "num": 3,
-              "content": "cat",
-              "isCorrect": false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "d961",
-      "title": "asfa",
-      "desc": "",
-      "time": "00:15",
-      "createdAt": "6/19/2024, 4:28:13 PM",
-      "questions": [
-        {
-          "id": "Qu1",
+          "id": "Qu2",
           "userId": "User1",
-          "content": "sss",
+          "content": "Second Quiz innit?",
           "type": "multiChoice",
           "correctOption": [
             "1"
@@ -91,8 +45,34 @@
           "options": [
             {
               "num": 1,
-              "content": "sss",
+              "content": "yup",
               "isCorrect": true
+            },
+            {
+              "num": 2,
+              "content": "nope",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "id": "Qu3",
+          "userId": "User1",
+          "content": "Third...?",
+          "type": "checkBox",
+          "correctOption": [
+            "1"
+          ],
+          "options": [
+            {
+              "num": 1,
+              "content": "3",
+              "isCorrect": true
+            },
+            {
+              "num": 2,
+              "content": "4",
+              "isCorrect": false
             }
           ]
         }
@@ -289,6 +269,110 @@
               "num": 1,
               "content": "fff",
               "isCorrect": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "522e",
+      "title": "Sample Quiz",
+      "desc": "Description goes here...",
+      "time": "00:05",
+      "createdAt": "6/28/2024, 4:02:03 PM",
+      "questions": [
+        {
+          "id": "Qu1",
+          "userId": "User1",
+          "content": "1+1",
+          "type": "multiChoice",
+          "correctOption": [
+            "1"
+          ],
+          "options": [
+            {
+              "num": 1,
+              "content": "2",
+              "isCorrect": true
+            },
+            {
+              "num": 2,
+              "content": "3",
+              "isCorrect": false
+            },
+            {
+              "num": 3,
+              "content": "4",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "id": "Qu2",
+          "userId": "User1",
+          "content": "who is an intern in Custom edge",
+          "type": "checkBox",
+          "correctOption": [
+            "1",
+            "2"
+          ],
+          "options": [
+            {
+              "num": 1,
+              "content": "Wole",
+              "isCorrect": true
+            },
+            {
+              "num": 2,
+              "content": "Gerald",
+              "isCorrect": true
+            },
+            {
+              "num": 3,
+              "content": "Princess",
+              "isCorrect": false
+            }
+          ]
+        },
+        {
+          "id": "Qu3",
+          "userId": "User1",
+          "content": "how would describe your experience at Sidmach",
+          "type": "text",
+          "correctOption": [
+            "1"
+          ],
+          "options": [
+            {
+              "num": 1,
+              "content": "Very good, excellent,  alright",
+              "isCorrect": true
+            }
+          ]
+        },
+        {
+          "id": "Qu4",
+          "userId": "User1",
+          "content": "2*2",
+          "type": "multiChoice",
+          "correctOption": [
+            "2"
+          ],
+          "options": [
+            {
+              "num": 1,
+              "content": "25",
+              "isCorrect": false
+            },
+            {
+              "num": 2,
+              "content": "4",
+              "isCorrect": true
+            },
+            {
+              "num": 3,
+              "content": "16",
+              "isCorrect": false
             }
           ]
         }

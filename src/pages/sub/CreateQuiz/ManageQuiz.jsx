@@ -2,7 +2,7 @@ import { Modal, Time } from "./OtherSubs";
 import { useState, useContext, useEffect } from "react";
 import NewQuestion from "./NewQuestion";
 import Header from "../../../components/Header";
-import { changeQuiz, getQuizById } from "../../../services/quiz";
+import { changeQuiz, deleteQuizById, getQuizById } from "../../../services/quiz";
 import MyNotification from "../../../components/MyNotifications";
 import { MyStates } from "../../../App";
 import { useParams } from "react-router-dom";
@@ -30,10 +30,11 @@ const Main = ({ myQuiz, myQuestion, setModalVisible, buttonDisabled }) => {
     );
 
     if (titleValid && questionsValid && optionsValid && correctOptValid) {
-      setModalVisible();
+      setModalVisible(true);
     }
   };
 
+  
   //new Questions
   const QuNum = questionCount.length + 1;
   const addQuestion = () => {
@@ -106,6 +107,16 @@ const Main = ({ myQuiz, myQuestion, setModalVisible, buttonDisabled }) => {
           </p>
         </button>
       ) : null}
+      <button
+          type="button"
+          disabled={buttonDisabled}
+          onClick={()=>setModalVisible('delete')}
+          className={`flex bg-red-400 rounded-3xl mt-5 p-2 w-[90%] min-h-[50px] shadow-lg text-white hover:text-red-600 hover:bg-white cursor-pointer`}
+        >
+          <p id="addOption" className=" m-auto pb-0 text-xl">
+            Delete MyQuizz
+          </p>
+        </button>
     </main>
   );
 };
@@ -167,6 +178,15 @@ const ManageQuiz = ({ dropDown }) => {
     }
   })
 
+  const handleDelete=()=>{
+    deleteQuizById(id).then((res)=>{
+      console.log(res)
+      setNotification("Quiz deleted")
+      setTimeout(() => (window.location.href = "/MyQuizzes"), 3000)
+    }
+  )
+  }
+
   if (isLoading) {
     return (
       <>
@@ -186,11 +206,13 @@ const ManageQuiz = ({ dropDown }) => {
           modalVisible={modalVisible}
           setModalVisible={() => setModalVisible(false)}
           setNotification={setNotification}
+          handleDelete = {handleDelete}
+
         />
         <Main
           myQuiz={myQuiz}
           myQuestion={myQuestion}
-          setModalVisible={() => setModalVisible(true)}
+          setModalVisible={setModalVisible}
           buttonDisabled={buttonDisabled}
         />
       </form>

@@ -32,7 +32,34 @@ export const Time = ({ myQuiz }) => {
 };
 
 //Modal Component
-export const Modal = ({ modalVisible, setModalVisible, updateQuiz }) => {
+export const Modal = ({ modalVisible, setModalVisible, updateQuiz, handleDelete }) => {
+  if (modalVisible==='delete'){
+    return (
+      <MyModal modalVisible={modalVisible}>
+        <div className="flex flex-col justify-around relative min-w-72 w-[55%] min-h-96 bg-white border border-gray-300 rounded-xl px-8">
+          <h1 className="text-center">
+            Are you sure you want to Delete this quiz?
+          </h1>
+          <div className="flex justify-center gap-4 sm:gap-20">
+            <button
+              type="button"
+              onClick={setModalVisible}
+              className={`text-slate-400 rounded-2xl hover:text-black  hover:outline  outline-slate-300`}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={handleDelete}
+              className={`text-slate-400 rounded-2xl ml-8 hover:text-black hover:outline outline-slate-300 `}
+            >
+              Delete MyQuizz
+            </button>
+          </div>
+        </div>
+      </MyModal>
+    );
+  }
   return (
     <MyModal modalVisible={modalVisible}>
       <div className="flex flex-col justify-around relative min-w-72 w-[55%] min-h-96 bg-white border border-gray-300 rounded-xl px-8">

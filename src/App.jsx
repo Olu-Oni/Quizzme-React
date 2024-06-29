@@ -1,6 +1,7 @@
-import { createContext, useReducer, useState } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 import { ACTIONS, reducer } from "./reducers/reducer";
 import MyRoutes from "./routes/MyRoutes";
+import { useLocation } from "react-router-dom";
 
 export const MyStates = createContext();
 
@@ -17,7 +18,6 @@ const initialState = {
 };
 
 const App = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
 
   const setters = {
     setQuiz: (value) => dispatch({ type: ACTIONS.SET_QUIZ, payload: value }),
@@ -37,6 +37,14 @@ const App = () => {
   };
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    // Update value based on the current path  
+      setters.setQuiz(initialState.myQuiz);    
+  }, [pathname]);
 
   return (
     <div className="font-urbanist max-sm:text-lg min-h-dvh flex flex-col">

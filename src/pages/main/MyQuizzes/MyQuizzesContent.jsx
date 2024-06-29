@@ -19,7 +19,7 @@ const Quizzes = ({quiz}) => {
       </h3>
       <div className="p-2 m-1 flex justify-between">
         
-        <MyButton text={'TakeQuiz'} changeWindow={`/TakeQuiz/${quiz.id}`} extraClass="quiz-button bg-white py-1 pt-2 px-2 rounded-2xl"/>
+        <MyButton text={'Take quiz'} changeWindow={`/TakeQuiz/${quiz.id}`} extraClass="quiz-button bg-white py-1 pt-2 px-2 rounded-2xl"/>
         <MyButton text={'Manage'} changeWindow={`/ManageQuiz/${quiz.id}`} extraClass="quiz-button bg-white py-1 pt-2 px-2 rounded-2xl"/>
           
       </div>

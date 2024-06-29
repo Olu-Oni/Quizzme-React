@@ -4,9 +4,13 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 * {
   transition: all 0.1s ease;
   font-size: 12pt;
+  padding: 0px;
+  margin: 0px;
 }
 
 button,

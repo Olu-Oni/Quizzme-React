@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import { MyStates } from "../../../App";
-import { chipClasses } from "@mui/material";
 
 const CheckMark = () => {
   return (
@@ -117,58 +116,58 @@ const TextChoice = ({ chosenAnswers, question, options, handleAnswer }) => {
   );
 };
 
-const MyChoice = ({ index, question, options = question.options }) => {
+const MyChoice = ({ question, options = question.options }) => {
   const {
     state: { performance },
     setters: { setPerformance },
   } = useContext(MyStates);
 
-  // performance.chosenAnswers[index]
   const handleAnswer = (e, value) => {
-    const myAnswer = { id: question.id, content: [value] };
-    let chosenAnswers;
+    let answers  
 
     if (question.type === "multiChoice") {
-      chosenAnswers = performance.chosenAnswers.map((answers) =>
-        answers.id === question.id
-          ? { id: question.id, content: [value] }
-          : answers
-      );
+      // Update the answers state with chosen and correct answers
+    answers = performance.answers.map((ans) =>
+      ans.id === question.id
+        ? { ...ans, chosenAnswers: [value] }
+        : ans
+    );
     } else if (question.type === "checkBox") {
-      chosenAnswers = performance.chosenAnswers.map((answers) => {
+      // Update the answers state with chosen and correct answers
+    answers = performance.answers.map((answers) => {
         if (answers.id === question.id) {
-          if (answers.content.includes(value)) {
-            answers.content.splice(answers.content.indexOf(value), 1);
+          if (answers.chosenAnswers.includes(value)) {
+            answers.chosenAnswers.splice(answers.chosenAnswers.indexOf(value), 1);
             return answers;
           }
           return {
-            id: question.id,
-            content: answers.content.find((c) => c.value === value)
-              ? answers.content
-              : answers.content.concat(value),
+            ...answers,
+            chosenAnswers: answers.chosenAnswers.find((c) => c === value)
+              ? answers.chosenAnswers
+              : answers.chosenAnswers.concat(value),
           };
         }
         return answers;
       });
     } else if (question.type === "text") {
-      chosenAnswers = performance.chosenAnswers.map((answers) =>
+      answers = performance.answers.map((answers) =>
         answers.id === question.id
-          ? { id: question.id, content: e.target.value }
+          ? { ...answers, chosenAnswers: [e.target.value] }
           : answers
       );
     }
 
     setPerformance({
       ...performance,
-      chosenAnswers: chosenAnswers,
-      // answers: performance.answers.map(ans=>ans.id ===question.id?{...ans,chosenAnswers: [chosenAnswers.content]}:ans)
+      answers: answers,
     });
   };
 
-   const chosenAnswers = performance.chosenAnswers
-    ? performance.chosenAnswers.find((answers) => answers.id === question.id)
-        .content
+   const chosenAnswers = performance.answers
+    ? performance.answers.find((answers) => answers.id === question.id)
+        .chosenAnswers
     : [];
+
   switch (question.type) {
     case "multiChoice":
       return (
@@ -199,4 +198,5 @@ const MyChoice = ({ index, question, options = question.options }) => {
       );
   }
 };
+
 export default MyChoice;

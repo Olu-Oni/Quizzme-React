@@ -43,9 +43,14 @@ const getQuizById = async (quizId) => {
   return response.data;
 };
 
+const deleteQuizById = async (quizId) => {
+  const response = await axios.delete(`${baseURL}/Quizzes/${quizId}`);
+  return response.data;
+};
+
 const addPerformance = async (obj) => {
   const response = await axios.post(`${baseURL}/Performance`, obj);
   return response.data;
 };
 
-export {addQuiz, changeQuiz, getQuizzesByUser, getQuizById, addPerformance };
+export {addQuiz, changeQuiz, getQuizzesByUser, getQuizById, addPerformance, deleteQuizById };
