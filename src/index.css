@@ -186,7 +186,7 @@ body {
 
 .quiz-grid {
   grid-template-columns: repeat(auto-fit, minmax(208px, 1fr));
-  gap: 3em;
+  gap: 1.75em;
 }
 
 .quiz-grid > div {
