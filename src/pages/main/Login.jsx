@@ -1,3 +1,5 @@
+import whiteLogo from "../../../images/login-logo-white.png"
+import googleIcon from "../../../images/googleLogo.png"
 const LoginForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -7,7 +9,7 @@ const LoginForm = () => {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <div className="flex flex-col mt-5 mx-auto">
+      <div className="flex flex-col mx-auto mt-5">
         <input
           name="email"
           type="text"
@@ -35,13 +37,13 @@ const LoginForm = () => {
 
 const Login = () => {
   return (
-    <div className="bold lg:10 text-white text-center content-center overflow-auto">
+    <div className="content-center overflow-auto text-center text-white bold lg:10">
       <div className="login-bg-image "></div>
 
       <div className="">
         <div>
           <img
-            src="/images/login-logo-white.png"
+            src={whiteLogo}
             className="mt-16 mx-auto md:w-[300px] w-[200px] mb-20 md:mb-26 md:mt-18"
           />
         </div>
@@ -64,7 +66,7 @@ const Login = () => {
           </div>
           <a className=" hover:cursor-pointer hover:backdrop-brightness-150 mt-5 h-[40px] inline-block border border-white  py-1 px-10 rounded-md">
             <img
-              src="/images/googleLogo.png"
+              src={googleIcon}
               className="w-[30px] h-[30px] mx-auto "
             />
           </a>

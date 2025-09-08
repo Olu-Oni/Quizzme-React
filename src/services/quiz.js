@@ -1,56 +1,200 @@
-import axios from "axios";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  orderBy,
+  query,
+  where,
+  limit,
+} from "firebase/firestore";
+import { db } from "../config/firebase";
+const defaultUser = "User1"
+const quizzesCollectionRef = collection(db, "Quizzes");
+const performanceCollectionRef = collection(db, "Performance");
 
-export const baseURL = `http://localhost:3001`;
+// ============================================================================
+// QUIZ FUNCTIONS
+// ============================================================================
 
-// const addQuestion = async(obj)=>{
-//     const response = await axios.post(`${baseURL}/Questions`, obj)
-//     return response.data
-// }
+/**
+ * Creates a new quiz in the Quizzes collection
+ * @param {Object} quizData - Data for the new quiz
+ * @param {string} quizData.title - Title of the quiz
+ * @param {string} quizData.desc - Description of the quiz
+ * @param {string} quizData.userId - ID of the user creating the quiz
+ * @param {Array} quizData.questions - Array of quiz questions
+ * @param {number} quizData.time - Time limit for the quiz
+ * @returns {Promise<Object>} - The created quiz with its ID
+ */
+const addQuiz = async (quizData) => {
+  try {
+    // Add timestamps to quiz data
+    const quizWithTimestamp = {
+      ...quizData,
+      userId: quizData.userId?quizData.userId:defaultUser,
+      createdAt: new Date().toISOString(), // Save the date in ISO 8601 format
+      updatedAt: new Date().toISOString(), // Save the date in ISO 8601 format
+    };
 
-// const addOption = async(obj)=>{
-//     const response = await axios.post(`${baseURL}/Options`, obj)
-//     return response.data
-// }
+    // Add the document to Firestore
+    const quizDocRef = await addDoc(quizzesCollectionRef, quizWithTimestamp);
 
-const addQuiz = async (obj) => {
-  const response = await axios.post(`${baseURL}/Quizzes`, obj);
-  return response.data;
+    // Return the created quiz with its ID
+    return { id: quizDocRef.id, ...quizWithTimestamp };
+  } catch (error) {
+    console.error("Error creating quiz:", error);
+    throw error;
+  }
 };
-const changeQuiz = async (obj) => {
-  const date = new Date();
-  const newQuiz = { ...obj, createdAt: date.toLocaleString("GMT") };
 
-  const response = await axios.put(
-    `${baseURL}/Quizzes/${obj.id}`,
-    newQuiz
-  );
-  return response.data;
+/**
+ * Updates an existing quiz
+ * @param {Object} quizData - Quiz data including the ID
+ * @param {string} quizData.id - ID of the quiz to update
+ * @returns {Promise<Object>} - The updated quiz data
+ */
+const changeQuiz = async (quizData) => {
+  try {
+    const { id, ...updateData } = quizData;
+    const quizDocRef = doc(quizzesCollectionRef, id);
+
+    // Add updated timestamp (matching your original format)
+    const date = new Date();
+    const dataWithTimestamp = {
+      ...updateData,
+      createdAt: date.toISOString(), // Keeping your original logic
+      updatedAt: new Date().toISOString(),
+    };
+
+    await updateDoc(quizDocRef, dataWithTimestamp);
+    
+    // Return the updated data with ID
+    return { id, ...dataWithTimestamp };
+  } catch (error) {
+    console.error("Error updating quiz:", error);
+    throw error;
+  }
 };
 
-const getQuizzesByUser = async (UserId) => {
-  const response = await axios.get(`${baseURL}/Quizzes/?userId=${UserId}`);
-  return response.data.map((quiz) => ({
-    id: quiz.id,
-    title: quiz.title,
-    desc: quiz.desc,
-    questLength: quiz.questions.length,
-    time: quiz.time,
-  }));
+/**
+ * Retrieves quizzes by user ID with summary information
+ * @param {string} userId - ID of the user whose quizzes to retrieve
+ * @returns {Promise<Array>} - Array of quiz summaries
+ */
+const getQuizzesByUser = async (userId=defaultUser) => {
+
+  try {
+    const q = query(
+      quizzesCollectionRef,
+      where("userId", "==", userId),
+      orderBy("updatedAt", "desc") // Sort by most recently updated
+    );
+
+    const quizDocs = await getDocs(q);
+    
+    return quizDocs.docs.map((doc) => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        title: data.title,
+        desc: data.desc,
+        questLength: data.questions ? data.questions.length : 0,
+        time: data.time,
+      };
+    });
+  } catch (error) {
+    console.error("Error fetching quizzes by user:", error);
+    throw error;
+  }
 };
 
+/**
+ * Retrieves a specific quiz by its ID
+ * @param {string} quizId - ID of the quiz to retrieve
+ * @returns {Promise<Object|null>} - The quiz data or null if not found
+ */
 const getQuizById = async (quizId) => {
-  const response = await axios.get(`${baseURL}/Quizzes/${quizId}`);
-  return response.data;
+  try {
+    const quizDocRef = doc(quizzesCollectionRef, quizId);
+    const quizDoc = await getDoc(quizDocRef);
+
+    if (quizDoc.exists()) {
+      return { id: quizDoc.id, ...quizDoc.data() };
+    } else {
+      console.log("No such quiz found!");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching quiz:", error);
+    throw error;
+  }
 };
 
+/**
+ * Deletes a quiz by its ID
+ * @param {string} quizId - ID of the quiz to delete
+ * @returns {Promise<Object>} - Success confirmation object
+ */
 const deleteQuizById = async (quizId) => {
-  const response = await axios.delete(`${baseURL}/Quizzes/${quizId}`);
-  return response.data;
+  try {
+    const quizDocRef = doc(quizzesCollectionRef, quizId);
+    await deleteDoc(quizDocRef);
+    
+    console.log("Quiz deleted successfully");
+    return { success: true, id: quizId };
+  } catch (error) {
+    console.error("Error deleting quiz:", error);
+    throw error;
+  }
 };
 
-const addPerformance = async (obj) => {
-  const response = await axios.post(`${baseURL}/Performance`, obj);
-  return response.data;
+// ============================================================================
+// PERFORMANCE FUNCTIONS
+// ============================================================================
+
+/**
+ * Creates a new performance record in the Performance collection
+ * @param {Object} performanceData - Data for the performance record
+ * @param {string} performanceData.userId - ID of the user
+ * @param {string} performanceData.quizId - ID of the quiz
+ * @param {number} performanceData.score - User's score
+ * @param {number} performanceData.totalQuestions - Total number of questions
+ * @param {number} performanceData.timeTaken - Time taken to complete quiz
+ * @returns {Promise<Object>} - The created performance record with its ID
+ */
+const addPerformance = async (performanceData) => {
+  try {
+    // Add timestamps to performance data
+    const performanceWithTimestamp = {
+      ...performanceData,
+      createdAt: new Date().toISOString(), // Save the date in ISO 8601 format
+      updatedAt: new Date().toISOString(), // Save the date in ISO 8601 format
+    };
+
+    // Add the document to Firestore
+    const performanceDocRef = await addDoc(
+      performanceCollectionRef,
+      performanceWithTimestamp
+    );
+
+    // Return the created performance record with its ID
+    return { id: performanceDocRef.id, ...performanceWithTimestamp };
+  } catch (error) {
+    console.error("Error creating performance record:", error);
+    throw error;
+  }
 };
 
-export {addQuiz, changeQuiz, getQuizzesByUser, getQuizById, addPerformance, deleteQuizById };
+// Export functions
+export {
+  addQuiz,
+  changeQuiz,
+  getQuizzesByUser,
+  getQuizById,
+  deleteQuizById,
+  addPerformance,
+};

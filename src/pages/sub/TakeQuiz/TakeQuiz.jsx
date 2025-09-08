@@ -8,14 +8,14 @@ import MyChoice from "./MyChoice";
 import { MyStates } from "../../../App";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
-import { addPerformance, baseURL, getQuizById } from "../../../services/quiz";
+import { getQuizById } from "../../../services/quiz";
 import MyNotification from "../../../components/MyNotifications";
 
 const Header = ({ startQuiz, quizDone, initialHours, initialMinutes }) => {
   return (
     <header className="h-[50px] flex justify-between text">
       <a className="text-green-900 " href="/Quizz_me">
-        <img src={backIcon} className="inline w-3 mr-2 mb-1" alt="Back" />
+        <img src={backIcon} className="inline w-3 mb-1 mr-2" alt="Back" />
         Return
       </a>
       <Timer
@@ -30,17 +30,17 @@ const Header = ({ startQuiz, quizDone, initialHours, initialMinutes }) => {
 
 const Main = ({ myCards, changeCards, questions }) => {
   return (
-    <main className="flex-1 flex flex-col">
-      <div className="mb-6 md:mb-16 text-xl md:text-2xl font-bold">
+    <main className="flex flex-col flex-1">
+      <div className="mb-6 text-xl font-bold md:mb-16 md:text-2xl">
         {`Question ${myCards.currentIndex + 1}/${questions.length}`}
       </div>
-      <div className="flex-1 grid md:grid-cols-custom-1 max-md:grid-rows-custom-1 gap-10">
+      <div className="grid flex-1 gap-10 md:grid-cols-custom-1 max-md:grid-rows-custom-1">
         <StackedCards
           myCards={myCards}
           questions={questions}
           changeCards={changeCards}
         />
-        <div className="flex overflow-y-auto overflow-x-hidden">
+        <div className="flex overflow-x-hidden overflow-y-auto">
           {questions[myCards.currentIndex] ? (
             <MyChoice
               index={myCards.currentIndex}
@@ -61,10 +61,10 @@ const Modal = ({ handleStartQuiz, modalVisible, modalOff, quizDone, myScore }) =
     return (
       <MyModal modalVisible={modalVisible}>
         <div className="flex flex-col justify-between items-center relative min-w-72 w-[55%] min-h-96 bg-white border border-gray-300 rounded-xl">
-          <h2 className="self-center text-center mx-auto my-auto">
+          <h2 className="self-center mx-auto my-auto text-center">
             Are you sure you want to submit?
           </h2>
-          <div className="flex  justify-center">
+          <div className="flex justify-center">
             <MyButton
               text="Resume Quiz"
               onClick={modalOff}
@@ -84,13 +84,13 @@ const Modal = ({ handleStartQuiz, modalVisible, modalOff, quizDone, myScore }) =
     return (
       <MyModal modalVisible={modalVisible}>
         <div className="flex flex-col justify-between items-center relative min-w-72 w-[55%] min-h-96 bg-white border border-gray-300 rounded-xl">
-          <div className="grow-1 my-auto flex flex-col gap-2 items-center">
-            {myScore.correct>=myScore.total?<h1 className="self-center text-center text-2xl m-auto text-green-600">Well Done!</h1>:<h1 >Nice try</h1>}
-            <div className="my-2 mx-auto flex justify-center">
+          <div className="flex flex-col items-center gap-2 my-auto grow-1">
+            {myScore.correct>=myScore.total?<h1 className="self-center m-auto text-2xl text-center text-green-600">Well Done!</h1>:<h1 >Nice try</h1>}
+            <div className="flex justify-center mx-auto my-2">
             <h1 className="inline">you scored: &nbsp; &nbsp;</h1> <h1 className={myScore.correct>=myScore.total?'inline text-green-600':' inline text-red-500'}>{myScore.correct}/{myScore.total}</h1>
 
             </div>
-            <h2 className="self-center text-center my-4 mx-4">
+            <h2 className="self-center mx-4 my-4 text-center">
               Your results have been uploaded to the Quiz Owner
             </h2>
           </div>
