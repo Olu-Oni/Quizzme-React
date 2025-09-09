@@ -49,11 +49,13 @@ const QmContent = () => {
     getAllQuizzes().then((quizzes) => {
       setAllQuizzes(quizzes);
       setDisplayQuizzes(quizzes);
-      });
+    });
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setIsSearching(true);
 
     if (!searchText.trim()) {
       // If search is empty, show all quizzes
@@ -62,12 +64,11 @@ const QmContent = () => {
       return;
     }
 
-    setIsSearching(true);
-
     try {
       const searchResults = await searchQuizzes(searchText);
       console.log("Search results:", searchResults);
       setDisplayQuizzes(searchResults);
+      setIsSearching(false);
     } catch (error) {
       console.error("Search failed:", error);
       // Fallback to client-side filtering if server search fails
@@ -97,11 +98,11 @@ const QmContent = () => {
           onChange={(e) => setSearchText(e.target.value)}
           className="search transition-all pl-3 pr-2 pt-2 pb-1 h-10 rounded-s-[17px] text-green-700 placeholder:text-inherit outline-[inherit] md:min-w-[25dvw] focus:md:min-w-[35dvw]"
           type="text"
-          placeholder="Search by title"
+          placeholder="Search by title and Author (case sensitive)"
         />
         <button
           type="submit"
-          disabled={!searchText}
+          // disabled={!searchText}
           className="rounded-e-2xl duration-[010ms] ease-in bg-white ml-[4px] w-10 h-[53.2px] scale-75 opacity-70 active:opacity-30 active:scale-[60%] disabled:opacity-30 disabled:cursor-not-allowed"
         >
           <img src={searchImg} alt="search icon" className="ml-1 w-7" />
@@ -120,33 +121,34 @@ const QmContent = () => {
 
       {/* Search status indicator */}
       {isSearching && (
-        <p className="mt-2 text-center text-gray-600">Searching...</p>
+        <h1 className="mt-6 text-center text-gray-600 md:mt-12">Searching...</h1>
       )}
 
       {searchText && !isSearching && displayQuizzes.length === 0 && (
-        <p className="mt-2 text-center text-gray-600">
+        <h1 className="mt-6 text-center text-gray-600 md:mt-12">
           No quizzes found for "{searchText}"
-        </p>
+        </h1>
       )}
-
-      <div className="grid m-3 mt-10 quiz-grid">
-        {displayQuizzes.length ? (
-          displayQuizzes.map((quiz) => (
-            <Quizzes
-              key={quiz.id}
-              quiz={{
-                ...quiz,
-                userId: quiz.userId || UserId, // Use actual userId if available
-                questLength: quiz.questions
-                  ? quiz.questions.length
-                  : quiz.questLength || 0,
-              }}
-            />
-          ))
-        ) : !searchText ? (
-          <h1 className="mx-auto text-green-700">No quizzes available...</h1>
-        ) : null}
-      </div>
+      {!isSearching && (
+        <div className="grid m-3 mt-10 quiz-grid">
+          {displayQuizzes.length ? (
+            displayQuizzes.map((quiz) => (
+              <Quizzes
+                key={quiz.id}
+                quiz={{
+                  ...quiz,
+                  userId: quiz.userId || UserId, // Use actual userId if available
+                  questLength: quiz.questions
+                    ? quiz.questions.length
+                    : quiz.questLength || 0,
+                }}
+              />
+            ))
+          ) : !searchText ? (
+            <h1 className="mx-auto text-green-700">No quizzes available...</h1>
+          ) : null}
+        </div>
+      )}
     </main>
   );
 };

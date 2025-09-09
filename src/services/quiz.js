@@ -202,62 +202,48 @@ const addPerformance = async (performanceData) => {
  * @returns {Promise<Array>} - Array of matching quizzes
  */
 const searchQuizzes = async (searchTerm, maxResults = 10) => {
-  try {
-    if (!searchTerm || searchTerm.trim() === "") {
-      return [];
-    }
+  if (!searchTerm?.trim()) return [];
 
+  try {
     const searchTermLower = searchTerm.toLowerCase().trim();
-console.log(typeof(searchTermLower))
-    // Search in title
+    
+    // Define queries for title and userId
     const titleQuery = query(
       quizzesCollectionRef,
       where("title", ">=", searchTerm),
       where("title", "<=", searchTerm + "\uf8ff"),
       limit(maxResults)
     );
-    console.log('titleQuery', titleQuery)
 
-    // Search in author (userId)
     const userQuery = query(
       quizzesCollectionRef,
-      where("userId", ">=", searchTermLower),
-      where("userId", "<=", searchTermLower + "\uf8ff"),
-      
-     limit(maxResults)
+      where("userId", ">=", searchTerm),
+      where("userId", "<=", searchTerm + "\uf8ff"),
+      limit(maxResults)
     );
-    console.log('userQuery', userQuery)
 
-    // Execute both queries
+    // Execute queries concurrently
     const [titleResults, userResults] = await Promise.all([
       getDocs(titleQuery),
-      getDocs(userQuery),
+      getDocs(userQuery)
     ]);
 
-    // Combine results and remove duplicates
-    const allQuizzes = new Map();
+    // Combine results into a Map to remove duplicates
+    const quizzesMap = new Map();
 
-    titleResults.forEach((doc) => {
-      allQuizzes.set(doc.id, {
-        id: doc.id,
-        ...doc.data(),
-        matchType: "title",
-      });
-    });
+    // Process title results
+    titleResults.forEach(doc => 
+      quizzesMap.set(doc.id, { id: doc.id, ...doc.data(), matchType: "title" })
+    );
 
-    userResults.forEach((doc) => {
-      // Only add if not already in results
-      if (!allQuizzes.has(doc.id)) {
-        allQuizzes.set(doc.id, {
-          id: doc.id,
-          ...doc.data(),
-          matchType: "userId",
-        });
-      }
-    });
+    // Process user results, only adding new entries
+    userResults.forEach(doc => 
+      !quizzesMap.has(doc.id) && 
+      quizzesMap.set(doc.id, { id: doc.id, ...doc.data(), matchType: "userId" })
+    );
 
-    // Convert to array
-    return Array.from(allQuizzes.values()).slice(0, maxResults);
+    // Return sliced array of results
+    return Array.from(quizzesMap.values()).slice(0, maxResults);
   } catch (error) {
     console.error("Error searching quizzes:", error);
     return [];
