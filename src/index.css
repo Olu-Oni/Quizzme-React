@@ -51,11 +51,11 @@ body {
 @layer components {
   /* login */
   .loginInput {
-    @apply mx-auto border-white border rounded-md bg-transparent pl-2 placeholder-custom tracking-wider py-2;
+    @apply py-2 pl-2 mx-auto tracking-wider bg-transparent border border-white rounded-md placeholder-custom;
   }
   /* nav */
   .nav_item {
-    @apply transition-transform w-fit text-gray-400;
+    @apply text-gray-400 transition-transform w-fit;
   }
   .nav_item:hover {
     @apply text-black  max-md:translate-x-[.5em] ;
@@ -92,7 +92,7 @@ body {
     content: "";
     width: var(--bar-width);
     transition: all var(--timing);
-    @apply relative  bg-green-800 rounded-full;
+    @apply relative bg-green-800 rounded-full;
   }
 
   .open-button input {
@@ -193,6 +193,12 @@ body {
   display: grid;
   grid-template-rows: auto 1fr auto;
   @apply m-auto;
+}
+
+.quiz-content > div {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  
 }
 
 .colGrid{

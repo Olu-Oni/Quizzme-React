@@ -130,7 +130,7 @@ const QmContent = () => {
         </h1>
       )}
       {!isSearching && (
-        <div className="grid m-3 mt-10 quiz-grid">
+        <div className="flex flex-wrap gap-6 m-3 mt-10 gap-y-10 md:gap-8 lg:gap-12 quiz-content">
           {displayQuizzes.length ? (
             displayQuizzes.map((quiz) => (
               <Quizzes

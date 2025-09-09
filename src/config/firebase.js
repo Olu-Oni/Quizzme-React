@@ -1,10 +1,11 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { getFirestore} from 'firebase/firestore';
 
 // Your web app's Firebase configuration
+console.log(import.meta.env.VITE_TEXT_MESSAGE)
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
-  authDomain: import.meta.env.VITE_AUTH_DOMAIN ,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
   projectId: import.meta.env.VITE_PROJECT_ID,
   storageBucket: import.meta.env.VITE_STORAGE_BUCKET ,
   messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID ,
@@ -18,4 +19,4 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // Export Firestore instance and common methods
-export { db, collection, addDoc, getDocs, doc, updateDoc, deleteDoc };
+export { db};
