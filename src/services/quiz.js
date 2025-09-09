@@ -13,6 +13,8 @@ import {
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 
+
+
 const defaultUser = "User1";
 const defaultAuthor = "User1";
 const defaultAuthorID = "User1";
@@ -34,6 +36,7 @@ const performanceCollectionRef = collection(db, "Performance");
  * @returns {Promise<Object>} - The created quiz with its ID
  */
 const addQuiz = async (quizData) => {
+
   try {
     // Add timestamps to quiz data
     const quizWithTimestamp = {

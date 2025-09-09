@@ -11,46 +11,58 @@ import TakeQuiz from "../pages/sub/TakeQuiz/TakeQuiz";
 import CreateQuiz from "../pages/sub/CreateQuiz/CreateQuiz";
 import ManageQuiz from "../pages/sub/CreateQuiz/ManageQuiz";
 import Header from "../components/Header";
+import ProtectedRoute from "../routes/ProtectedRoute"; // Imported ProtectedRoute
 
-const MyRoutes = ({ isOpen, setIsOpen }) => (
-  <Routes>
-    <Route path="*" element={<NoPath />} />
-    <Route path="/" element={<Welcome />} />
-    <Route path="/Login" element={<Login />} />
+const MyRoutes = ({ isOpen, setIsOpen }) => {
+  return (
+    <Routes>
+      <Route path="*" element={<NoPath />} />
+      <Route path="/" element={<Welcome />} />
+      <Route path="/Login" element={<Login />} />
 
-    <Route element={<Header dropDown={{ isOpen, setIsOpen }} />}>
-      <Route path="/home" element={<Home dropDown={{ isOpen, setIsOpen }} />} />
+      {/* Wrap all protected routes with a single ProtectedRoute */}
       <Route
-        path="/Performance"
-        element={<Performance dropDown={{ isOpen, setIsOpen }} />}
-      />
-      <Route
-        path="/Quizz_me"
-        element={<Quizz_me dropDown={{ isOpen, setIsOpen }} />}
-      />
-      <Route
-        path="/MyQuizzes"
-        element={<MyQuizzes dropDown={{ isOpen, setIsOpen }} />}
-      />
-      <Route
-        path="/CreateQuiz"
-        element={<CreateQuiz dropDown={{ isOpen, setIsOpen }} />}
-      />
-      <Route
-        path="/ManageQuiz/:id"
-        element={<ManageQuiz dropDown={{ isOpen, setIsOpen }} />}
-      />
-    </Route>
+        path="/*"
+        element={
+          <ProtectedRoute>
+            <Header dropDown={{ isOpen, setIsOpen }} />
+          </ProtectedRoute>
+        }
+      >
+        {/* These nested routes will be protected */}
+        <Route path="home" element={<Home dropDown={{ isOpen, setIsOpen }} />} />
+        <Route
+          path="Performance"
+          element={<Performance dropDown={{ isOpen, setIsOpen }} />}
+        />
+        <Route
+          path="Quizz_me"
+          element={<Quizz_me dropDown={{ isOpen, setIsOpen }} />}
+        />
+        <Route
+          path="MyQuizzes"
+          element={<MyQuizzes dropDown={{ isOpen, setIsOpen }} />}
+        />
+        <Route
+          path="CreateQuiz"
+          element={<CreateQuiz dropDown={{ isOpen, setIsOpen }} />}
+        />
+        <Route
+          path="ManageQuiz/:id"
+          element={<ManageQuiz dropDown={{ isOpen, setIsOpen }} />}
+        />
+      </Route>
 
-    <Route
-      path="/TakeQuiz/:id"
-      element={
-        <Suspense>
-          <TakeQuiz />{" "}
-        </Suspense>
-      }
-    />
-  </Routes>
-);
+      <Route
+        path="/TakeQuiz/:id"
+        element={
+          <Suspense>
+            <TakeQuiz />
+          </Suspense>
+        }
+      />
+    </Routes>
+  );
+};
 
 export default MyRoutes;

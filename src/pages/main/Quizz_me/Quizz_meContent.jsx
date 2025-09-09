@@ -12,7 +12,7 @@ const Quizzes = ({ quiz }) => {
   const author = `${userId}`;
 
   return (
-    <div className="relative h-48 rounded-lg shadow-lg w-52 shadow-gray-500 hover:shadow-gray-400">
+    <div className="relative flex-1 h-48 max-w-xs rounded-lg shadow-lg max-sm:mx-auto basis-52 shadow-gray-500 hover:shadow-gray-400">
       <div className="box-bg-image opacity-80 "></div>
       <div className="subBG  bg-[#0ab6fa]"></div>
 
@@ -25,10 +25,10 @@ const Quizzes = ({ quiz }) => {
       <h3 className="mx-5 mt-auto ml-auto text-white backdrop-blur-3xl">
         {questLength} questions
       </h3>
-      <div className="p-2 m-1">
+      <div className="flex justify-center w-full p-3">
         <MyButton
           text="Take Quiz"
-          extraClass="w-full bg-white"
+          extraClass="w-full max-w-[250px]  bg-white"
           changeWindow={`/TakeQuiz/${id}`}
           disabled={questLength > 0 ? false : true}
         />
@@ -42,8 +42,7 @@ const QmContent = () => {
   const [displayQuizzes, setDisplayQuizzes] = useState([]); // Quizzes to display
   const [searchText, setSearchText] = useState("");
   const [isSearching, setIsSearching] = useState(false);
-  const UserId = "User1";
-
+  
   useEffect(() => {
     // Load all quizzes initially
     getAllQuizzes().then((quizzes) => {

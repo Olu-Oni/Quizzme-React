@@ -13,14 +13,14 @@ const initialState = {
     createdAt: "",
     questions: [],
   },
+  userId: "",
   performance: {},
   isOpen: false,
 };
-
 const App = () => {
-
   const setters = {
     setQuiz: (value) => dispatch({ type: ACTIONS.SET_QUIZ, payload: value }),
+    setUser: (value) => dispatch({ type: ACTIONS.SET_USER, payload: value }),
     setQuizTime: (value) =>
       dispatch({ type: ACTIONS.SET_QUIZ_TIME, payload: value }),
     setQuizTitle: (value) =>
@@ -33,21 +33,20 @@ const App = () => {
       dispatch({ type: ACTIONS.SET_ISOPEN, payload: value }),
     setPerformance: (value) =>
       dispatch({ type: ACTIONS.SET_PERFORMANCE, payload: value }),
-  
   };
 
   const [isOpen, setIsOpen] = useState(false);
 
   const [state, dispatch] = useReducer(reducer, initialState);
   const { pathname } = useLocation();
-
+  
   useEffect(() => {
-    // Update value based on the current path  
-      setters.setQuiz(initialState.myQuiz);    
+    // Update value based on the current path
+    setters.setQuiz(initialState.myQuiz);
   }, [pathname]);
 
   return (
-    <div className="font-urbanist max-sm:text-lg min-h-dvh flex flex-col">
+    <div className="flex flex-col font-urbanist max-sm:text-lg min-h-dvh">
       <MyStates.Provider value={{ state, setters }}>
         <MyRoutes isOpen={isOpen} setIsOpen={setIsOpen} />
       </MyStates.Provider>

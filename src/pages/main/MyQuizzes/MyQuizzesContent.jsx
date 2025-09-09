@@ -6,7 +6,7 @@ const Quizzes = ({ quiz }) => {
   const { title, questLength } = quiz;
 
   return (
-    <div className="relative h-48 rounded-lg shadow-lg w-52 shadow-gray-500 hover:shadow-gray-400">
+    <div className="relative flex-1 h-48 max-w-sm rounded-lg shadow-lg max-sm:mx-auto basis-52 shadow-gray-500 hover:shadow-gray-400">
       <div className="box-bg-image opacity-80 "></div>
       <div className="subBG  bg-[#a7d231]"></div>
 
@@ -16,7 +16,7 @@ const Quizzes = ({ quiz }) => {
       <h3 className="mx-5 mt-auto ml-auto text-white backdrop-blur-3xl">
         {questLength} question{questLength > 1 ? "s" : ""}
       </h3>
-      <div className="flex justify-between p-2 m-1">
+      <div className="flex justify-between w-full p-3">
         <MyButton
           text={"Take quiz"}
           changeWindow={`/TakeQuiz/${quiz.id}`}
@@ -35,11 +35,13 @@ const MQContent = () => {
   const [quizzes, setQuizzes] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const UserId = "User1";
+
+  const userId = localStorage.getItem("userId");
+  const parsedUserId = userId ? JSON.parse(userId) : null;
 
   useEffect(() => {
     setIsLoading(true);
-    getQuizzesByUser(UserId)
+    getQuizzesByUser(parsedUserId)
       .then((myQuizes) => setQuizzes(myQuizes))
       .then(() => setIsLoading(false));
   }, []);
@@ -66,22 +68,21 @@ const MQContent = () => {
         </h1>
       )}
       {/* Quizes */}
-        {!isLoading && (
-      <div className="flex flex-wrap gap-6 m-3 mt-10 gap-y-10 md:gap-8 lg:gap-12 quiz-content">
-        {searchedQuiz.length ? (
-          searchedQuiz.map((quiz) => <Quizzes key={quiz.id} quiz={quiz} />)
-        ) : (
-          <h1 className="mx-auto text-green-700">No quizzes here...</h1>
-        )}
-      </div>
+      {!isLoading && (
+        <div className="flex flex-wrap gap-6 m-3 mt-10 gap-y-10 md:gap-8 lg:gap-12 quiz-content">
+          {searchedQuiz.length ? (
+            searchedQuiz.map((quiz) => <Quizzes key={quiz.id} quiz={quiz} />)
+          ) : (
+            <h1 className="mx-auto text-green-700">No quizzes here...</h1>
+          )}
+        </div>
       )}
-        <CreateQuizButton
-          text={"Create a new Quiz"}
-          changeWindow={"/CreateQuiz"}
-          hover={"hover:brightness-150"}
-          outline={"outline-white"}
-        />
-
+      <CreateQuizButton
+        text={"Create a new Quiz"}
+        changeWindow={"/CreateQuiz"}
+        hover={"hover:brightness-150"}
+        outline={"outline-white"}
+      />
     </main>
   );
 };

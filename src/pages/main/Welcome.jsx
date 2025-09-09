@@ -2,7 +2,7 @@ import loginLogo from '../../../images/login-logo-orange.png'
 
 const Welcome = () => {
   return (
-    <div className="font-urbanist bold lg:10 text-white text-center content-center overflow-auto">
+    <div className="content-center overflow-auto text-center text-white font-urbanist bold lg:10">
       <div className="login-bg-image "></div>
 
       <div className="pt-20 md:mb-32 md:mt-20">
@@ -12,7 +12,7 @@ const Welcome = () => {
       <div className="mx-auto hover:cursor-pointer">
         <button
           id="register-button"
-          onClick={()=>window.location.href = "/Register"}
+          onClick={()=>window.location.href = "/Login"}
           className="bg-white text-black w-64 text-center mt-5  rounded-xl  mx-auto block text-[10pt] md:text-[13pt] py-2 "
         >
           Register

@@ -1,5 +1,6 @@
 const ACTIONS = {
   SET_QUIZ: "SET_QUIZ",
+  SET_USER: "SET_USER",
   SET_QUESTIONS: "SET_QUESTIONS",
   SET_QUIZ_TIME: "SET_QUIZ_TIME",
   SET_QUIZ_TITLE: "SET_QUIZ_TITLE",
@@ -12,6 +13,8 @@ const reducer = (state, action) => {
   switch (action.type) {
     case ACTIONS.SET_QUIZ:
       return { ...state, myQuiz: action.payload };
+    case ACTIONS.SET_USER:
+      return { ...state, userId: action.payload };
     case ACTIONS.SET_QUIZ_TIME: {
       const newQuiz = { ...state.myQuiz, time: action.payload.format("HH:mm") };
       return { ...state, myQuiz: newQuiz };
