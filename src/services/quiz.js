@@ -12,7 +12,10 @@ import {
   limit,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
-const defaultUser = "User1"
+
+const defaultUser = "User1";
+const defaultAuthor = "User1";
+const defaultAuthorID = "User1";
 const quizzesCollectionRef = collection(db, "Quizzes");
 const performanceCollectionRef = collection(db, "Performance");
 
@@ -35,7 +38,7 @@ const addQuiz = async (quizData) => {
     // Add timestamps to quiz data
     const quizWithTimestamp = {
       ...quizData,
-      userId: quizData.userId?quizData.userId:defaultUser,
+      userId: quizData.userId ? quizData.userId : defaultUser,
       createdAt: new Date().toISOString(), // Save the date in ISO 8601 format
       updatedAt: new Date().toISOString(), // Save the date in ISO 8601 format
     };
@@ -71,7 +74,7 @@ const changeQuiz = async (quizData) => {
     };
 
     await updateDoc(quizDocRef, dataWithTimestamp);
-    
+
     // Return the updated data with ID
     return { id, ...dataWithTimestamp };
   } catch (error) {
@@ -85,8 +88,7 @@ const changeQuiz = async (quizData) => {
  * @param {string} userId - ID of the user whose quizzes to retrieve
  * @returns {Promise<Array>} - Array of quiz summaries
  */
-const getQuizzesByUser = async (userId=defaultUser) => {
-
+const getQuizzesByUser = async (userId = defaultUser) => {
   try {
     const q = query(
       quizzesCollectionRef,
@@ -95,7 +97,7 @@ const getQuizzesByUser = async (userId=defaultUser) => {
     );
 
     const quizDocs = await getDocs(q);
-    
+
     return quizDocs.docs.map((doc) => {
       const data = doc.data();
       return {
@@ -143,7 +145,7 @@ const deleteQuizById = async (quizId) => {
   try {
     const quizDocRef = doc(quizzesCollectionRef, quizId);
     await deleteDoc(quizDocRef);
-    
+
     console.log("Quiz deleted successfully");
     return { success: true, id: quizId };
   } catch (error) {
@@ -189,6 +191,104 @@ const addPerformance = async (performanceData) => {
   }
 };
 
+// ============================================================================
+// SEARCH AND UTILITY FUNCTIONS
+// ============================================================================
+
+/**
+ * Simple search by title and description only
+ * @param {string} searchTerm - Term to search for
+ * @param {number} maxResults - Maximum number of results to return
+ * @returns {Promise<Array>} - Array of matching quizzes
+ */
+const searchQuizzes = async (searchTerm, maxResults = 10) => {
+  try {
+    if (!searchTerm || searchTerm.trim() === "") {
+      return [];
+    }
+
+    const searchTermLower = searchTerm.toLowerCase().trim();
+console.log(typeof(searchTermLower))
+    // Search in title
+    const titleQuery = query(
+      quizzesCollectionRef,
+      where("title", ">=", searchTerm),
+      where("title", "<=", searchTerm + "\uf8ff"),
+      limit(maxResults)
+    );
+    console.log('titleQuery', titleQuery)
+
+    // Search in author (userId)
+    const userQuery = query(
+      quizzesCollectionRef,
+      where("userId", ">=", searchTermLower),
+      where("userId", "<=", searchTermLower + "\uf8ff"),
+      
+     limit(maxResults)
+    );
+    console.log('userQuery', userQuery)
+
+    // Execute both queries
+    const [titleResults, userResults] = await Promise.all([
+      getDocs(titleQuery),
+      getDocs(userQuery),
+    ]);
+
+    // Combine results and remove duplicates
+    const allQuizzes = new Map();
+
+    titleResults.forEach((doc) => {
+      allQuizzes.set(doc.id, {
+        id: doc.id,
+        ...doc.data(),
+        matchType: "title",
+      });
+    });
+
+    userResults.forEach((doc) => {
+      // Only add if not already in results
+      if (!allQuizzes.has(doc.id)) {
+        allQuizzes.set(doc.id, {
+          id: doc.id,
+          ...doc.data(),
+          matchType: "userId",
+        });
+      }
+    });
+
+    // Convert to array
+    return Array.from(allQuizzes.values()).slice(0, maxResults);
+  } catch (error) {
+    console.error("Error searching quizzes:", error);
+    return [];
+  }
+};
+
+/**
+ * Get quizzes with limit (for pagination)
+ * @param {number} limitCount - Maximum number of quizzes to return
+ * @returns {Promise<Array>} - Array of quizzes
+ */
+const getAllQuizzes = async (limitCount = 20) => {
+  try {
+    const q = query(quizzesCollectionRef, limit(limitCount));
+    const querySnapshot = await getDocs(q);
+
+    const quizzes = [];
+    querySnapshot.forEach((doc) => {
+      quizzes.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+    });
+
+    return quizzes;
+  } catch (error) {
+    console.error("Error getting limited quizzes:", error);
+    return [];
+  }
+};
+
 // Export functions
 export {
   addQuiz,
@@ -197,4 +297,6 @@ export {
   getQuizById,
   deleteQuizById,
   addPerformance,
+  searchQuizzes,
+  getAllQuizzes,
 };

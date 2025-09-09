@@ -8,6 +8,7 @@ const MyButton = ({
   onClick,
   hover,
   outline,
+  disabled,
   type,
 }) => {
   const navigate = useNavigate()
@@ -15,6 +16,7 @@ const MyButton = ({
   return (
     <button
       type={type ? type : "button"}
+      disabled={disabled ? disabled : false}
       onClick={
         changeWindow ? () => navigate(changeWindow) : onClick
       }
@@ -38,13 +40,13 @@ const CreateQuizButton = ({
   const navigate = useNavigate()
 
   return (
-    <div className="createButton flex  fixed z-30 bottom-5 right-4 w-fit p-2  pr-0 ">
-      <div className=" relative left-5 top-1 p-1">
+    <div className="fixed z-30 flex p-2 pr-0 createButton bottom-5 right-4 w-fit ">
+      <div className="relative p-1  left-5 top-1">
         <button
           onClick={
             changeWindow ? () => navigate(changeWindow) : onClick
           }
-          className="bg-green-800  text-white py-2 px-5 rounded-s-3xl w-fit- hover:brightness-150 hover:outline outline-white shadow-md"
+          className="px-5 py-2 text-white bg-green-800 shadow-md rounded-s-3xl w-fit- hover:brightness-150 hover:outline outline-white"
         >
           {text}
         </button>
@@ -53,7 +55,7 @@ const CreateQuizButton = ({
         onClick={
           changeWindow ? () => (window.location.href = changeWindow) : onClick
         }
-        className=" mb-2 relative top-1  bg-white p-2 pl-3 rounded-full border border-slate-200 shadow-md"
+        className="relative p-2 pl-3 mb-2 bg-white border rounded-full shadow-md  top-1 border-slate-200"
       >
         <svg
           width="30"
