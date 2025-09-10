@@ -8,13 +8,17 @@ import MyModal from "../../../components/Modal";
 // Time component
 export const Time = ({ myQuiz }) => {
   const { quiz, setters } = myQuiz;
-  const initialTime = quiz.time ? dayjs(quiz.time, "HH:mm") :  dayjs().hour(0).minute(15);
+  const initialTime = quiz.time
+    ? dayjs(quiz.time, "HH:mm")
+    : dayjs().hour(0).minute(5);
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <TimePicker
         name="time" //   defaultValue={dayjs().hour(0).minute(15)}
         value={initialTime}
-        onChange={(newVal) => setters.setQuizTime(newVal)}
+        onChange={(newVal) => {
+          setters.setQuizTime(newVal);
+        }}
         ampm={false}
         openTo="hours"
         views={["hours", "minutes"]}
@@ -32,8 +36,13 @@ export const Time = ({ myQuiz }) => {
 };
 
 //Modal Component
-export const Modal = ({ modalVisible, setModalVisible, updateQuiz, handleDelete }) => {
-  if (modalVisible==='delete'){
+export const Modal = ({
+  modalVisible,
+  setModalVisible,
+  updateQuiz,
+  handleDelete,
+}) => {
+  if (modalVisible === "delete") {
     return (
       <MyModal modalVisible={modalVisible}>
         <div className="flex flex-col justify-around relative min-w-72 w-[55%] min-h-96 bg-white border border-gray-300 rounded-xl px-8">
@@ -73,24 +82,25 @@ export const Modal = ({ modalVisible, setModalVisible, updateQuiz, handleDelete 
             className={`text-slate-400 rounded-2xl hover:text-black  hover:outline  outline-slate-300`}
           >
             Continue Editing
-          </button>{
-            updateQuiz?
-          <button
-            type="button"
-            onClick={updateQuiz}
-            className={`text-slate-400 rounded-2xl hover:text-black hover:outline outline-slate-300`}
-          >
-            Submit my Quizz
-          </button>:
-          <button
-          type="submit"
-          className={`text-slate-400 hover:text-black hover:outline-2 outline-slate-300`}
-        >
-          Create my Quizz
-        </button>}
+          </button>
+          {updateQuiz ? (
+            <button
+              type="button"
+              onClick={updateQuiz}
+              className={`text-slate-400 rounded-2xl hover:text-black hover:outline outline-slate-300`}
+            >
+              Submit my Quizz
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className={`text-slate-400 hover:text-black hover:outline-2 outline-slate-300`}
+            >
+              Create my Quizz
+            </button>
+          )}
         </div>
       </div>
     </MyModal>
   );
 };
-

@@ -7,7 +7,7 @@ import MyModal from "../../../components/Modal";
 import MyChoice from "./MyChoice";
 import { MyStates } from "../../../App";
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getQuizById } from "../../../services/quiz";
 import MyNotification from "../../../components/MyNotifications";
 
@@ -95,8 +95,8 @@ const Modal = ({ handleStartQuiz, modalVisible, modalOff, quizDone, myScore }) =
             </h2>
           </div>
           <MyButton
-            text="Back to MyQuizzes"
-            onClick={() => navigate("/MyQuizzes")}
+            text="Back to Quizzes"
+            onClick={() => navigate("/Quizz_me")}
             extraClass="bg-green-900 text-white h-fit px-[20%] py-2 m-3 text-nowrap mx-auto self-center"
           />
         </div>
@@ -128,7 +128,8 @@ const Modal = ({ handleStartQuiz, modalVisible, modalOff, quizDone, myScore }) =
 
 const TakeQuiz = () => {
   const { id } = useParams();
-
+const loc = useLocation()
+console.log(loc)
   const {
     data: quiz,
     isLoading,
@@ -144,35 +145,35 @@ const TakeQuiz = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [startQuiz, setStartQuiz] = useState(false);
   
-  // const [notification, setNotification] = useState("");
+  const [notification, setNotification] = useState("");
   
-  // useEffect(() => {
-  //   if (startQuiz) {
-  //     const handleBeforeUnload = (e) => {
-  //       e.preventDefault();
-  //       // setNotification("something");
-  //       e.returnValue = "";
-  //       return "Refresh will auto submit Quiz";
-  //     };
+  useEffect(() => {
+    if (startQuiz) {
+      const handleBeforeUnload = (e) => {
+        e.preventDefault();
+        // setNotification("something");
+        e.returnValue = "";
+        return "Refresh will auto submit Quiz";
+      };
 
-  //     const handleUnload = () => {
-  //       navigator.sendBeacon(
-  //         `${baseURL}/Performance`,
-  //         JSON.stringify(state.performance)
-  //       );
-  //     };
+      const handleUnload = () => {
+        navigator.sendBeacon(
+          `/Performance`,
+          JSON.stringify(state.performance)
+        );
+      };
 
-  //     window.addEventListener("beforeunload", (e) => {
-  //       handleBeforeUnload(e);
-  //     });
-  //     window.addEventListener("unload", handleUnload);
+      window.addEventListener("beforeunload", (e) => {
+        handleBeforeUnload(e);
+      });
+      window.addEventListener("unload", handleUnload);
 
-  //     return () => {
-  //       window.removeEventListener("beforeunload", handleBeforeUnload);
-  //       window.removeEventListener("unload", handleUnload);
-  //     };
-  //   }
-  // }, [startQuiz, state.performance]);
+      return () => {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+        window.removeEventListener("unload", handleUnload);
+      };
+    }
+  }, [startQuiz, state.performance]);
 
   useEffect(() => {
     if (isSuccess) {

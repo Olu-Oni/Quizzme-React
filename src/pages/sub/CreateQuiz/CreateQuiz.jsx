@@ -6,7 +6,8 @@ import { addQuiz } from "../../../services/quiz";
 import { MyStates } from "../../../App";
 
 // Main component
-const Main = ({ myQuiz, myQuestion, setModalVisible, buttonDisabled }) => {
+const Main = ({ myQuiz, myQuestion, setModalVisible, buttonDisabled, setNotification }) => {
+  // const [missingValues, setMissingValues]
   const { questionCount, setQuestionCount } = myQuestion;
   const { quiz, setters } = myQuiz;
   //check if all inputs are filled
@@ -26,6 +27,9 @@ const Main = ({ myQuiz, myQuestion, setModalVisible, buttonDisabled }) => {
 
     if (titleValid && questionsValid && optionsValid && correctOptValid) {
       setModalVisible();
+    }
+    else{
+      setNotification("Missing parameters!")
     }
   };
 
@@ -58,10 +62,10 @@ const Main = ({ myQuiz, myQuestion, setModalVisible, buttonDisabled }) => {
             type="text"
             name="title"
             required
-            placeholder="Quiz Title*"
+            placeholder="Enter Title*"
             value={quiz.title}
             onChange={(e) => setters.setQuizTitle(e.target.value)}
-            className="focus:bg-slate-200 min-w-48 w-[50%] m-3 p-2 pb-0 bg-opacity-35 focus:border-b border-black outline-none text-3xl placeholder:text-gray-500"
+            className="bg-slate-100 min-w-48 w-[50%] m-3 p-2 pb-0 mb-5 bg-opacity-35 border-b border-black outline-none text-3xl placeholder:text-gray-500"
           />
           <Time myQuiz={myQuiz} />
         </div>
@@ -108,7 +112,8 @@ const Main = ({ myQuiz, myQuestion, setModalVisible, buttonDisabled }) => {
 //notification component
 const Notification = ({ myNotify }) => {
   const { notification, setNotification } = myNotify;
-  return (
+  
+  if(notification==="Quiz submitted!!!"){return (
     <MyNotification
       notification={notification}
       setNotification={setNotification}
@@ -117,7 +122,18 @@ const Notification = ({ myNotify }) => {
       <h2 className="mx-auto my-4 text-xl text-green-700">{notification}</h2>
       <h3>You will be redirected to another page soon</h3>
     </MyNotification>
-  );
+  )}
+  else if(notification==="Missing parameters!"){return (
+    <MyNotification
+      notification={notification}
+      setNotification={setNotification}
+      type={'warning'}
+      time={5000}
+    >
+      <h2 className="mx-auto my-4 text-xl font-normal text-red-700">{notification}</h2>
+      <h3>Ensure The <strong >Quiz TITLE</strong>, <strong>QUESTIONS</strong>, <strong>ANSWERS</strong>, and <strong>CORRECT OPTIONS</strong> are properly filled</h3>
+    </MyNotification>
+  )};
 };
 
 // CreateQuiz component
@@ -176,6 +192,7 @@ const CreateQuiz = () => {
           myQuestion={myQuestion}
           setModalVisible={() => setModalVisible(true)}
           buttonDisabled={buttonDisabled}
+          setNotification={setNotification}
         />
       </form>
     </div>

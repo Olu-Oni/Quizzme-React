@@ -9,7 +9,7 @@ const initialState = {
   myQuiz: {
     title: "",
     desc: "",
-    time: "",
+    time: "00:05",
     createdAt: "",
     questions: [],
   },

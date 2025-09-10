@@ -16,7 +16,7 @@ const MultiOption = ({ option, deleteOption, updateOption, number }) => {
 
   return (
     <div className="m-3">
-      <div className="m-2 ml-0 inline">
+      <div className="inline m-2 ml-0">
         <span
           className={`inline-block relative top-2 w-5 h-5 rounded-full border border-green-950 ${
             isCorrect ? "bg-green-500 border-neutral-500" : ""
@@ -40,7 +40,7 @@ const MultiOption = ({ option, deleteOption, updateOption, number }) => {
         placeholder={`Option ${number}`}
         className="min-w-48 w-[50%] pt-1 bg-opacity-35 border-b border-black outline-none"
       />
-      <button type="button" onClick={() => deleteOption(num)} className="tooltip ml-3 opacity-60 hover:opacity-100">
+      <button type="button" onClick={() => deleteOption(num)} className="ml-3 tooltip opacity-60 hover:opacity-100">
         <div className="tooltiptext">remove</div>
         <Remove />
       </button>
@@ -49,7 +49,7 @@ const MultiOption = ({ option, deleteOption, updateOption, number }) => {
         onClick={(e) => handleOptionChange(e, "isCorrect")}
         className={`ml-3 relative top-1 ${isCorrect ? "text-green-500" : "text-gray-400"}`}
       >
-        Correct
+        Mark Correct
       </button>
     </div>
   );
@@ -70,7 +70,7 @@ const CheckOption = ({ option, deleteOption, updateOption, number }) => {
 
   return (
     <div className="m-3">
-      <div className="m-2 ml-0 inline">
+      <div className="inline m-2 ml-0">
         <span
           className={`inline-block relative top-2 w-5 h-5 rounded-full border border-green-950 ${
             isCorrect ? "bg-green-500 border-neutral-500" : ""
@@ -94,7 +94,7 @@ const CheckOption = ({ option, deleteOption, updateOption, number }) => {
         placeholder={`Option ${number}`}
         className="min-w-48 w-[50%] pt-1 bg-opacity-35 border-b border-black outline-none"
       />
-      <button type="button" onClick={() => deleteOption(num)} className="tooltip ml-3 opacity-60 hover:opacity-100">
+      <button type="button" onClick={() => deleteOption(num)} className="ml-3 tooltip opacity-60 hover:opacity-100">
         <div className="tooltiptext">remove</div>
         <Remove />
       </button>
