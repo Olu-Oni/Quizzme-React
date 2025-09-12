@@ -33,11 +33,11 @@ const SlideMenu = ({ navNames, dropDown, userId }) => {
           <h1 >Welcome, {userId}
             </h1>
         </a>
-        <ul className="flex flex-col gap-6 my-6 h-[220px]">
+        <ul className="flex flex-col gap-6 mt-6 h-fit">
           {navNames.map((name) => (
             <NavItem key={name} name={name} />
           ))}
-          <li className="py-1 pt-2 text-center border-t rounded-b-xl hover:backdrop-brightness-95">
+          <li className="py-2 text-center border-t rounded-b-xl hover:backdrop-brightness-95">
             <button onClick={logOut}>Logout
               </button></li>
         </ul>

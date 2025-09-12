@@ -75,7 +75,7 @@ body {
 
   /* slide-Meu */
   .slide-menu {
-    @apply fixed top-0 transition-transform duration-300 ease-out translate-x-24  w-[260px] h-fit rounded-bl-3xl bg-white p-7 border-2;
+    @apply fixed top-0 transition-transform duration-300 ease-out translate-x-24  w-[260px] h-fit rounded-bl-3xl bg-white p-7 pb-0 border-2;
   }
   /* burger */
   :root {
