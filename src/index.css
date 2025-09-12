@@ -55,7 +55,7 @@ body {
   }
   /* nav */
   .nav_item {
-    @apply text-gray-400 transition-transform w-fit;
+    @apply py-1 text-gray-400 transition-transform w-fit h-fit;
   }
   .nav_item:hover {
     @apply text-black  max-md:translate-x-[.5em] ;
@@ -75,7 +75,7 @@ body {
 
   /* slide-Meu */
   .slide-menu {
-    @apply fixed top-0 transition-transform duration-300 ease-out translate-x-24  w-[260px] h-[350px] rounded-bl-3xl bg-white p-7 border-2;
+    @apply fixed top-0 transition-transform duration-300 ease-out translate-x-24  w-[260px] h-fit rounded-bl-3xl bg-white p-7 border-2;
   }
   /* burger */
   :root {

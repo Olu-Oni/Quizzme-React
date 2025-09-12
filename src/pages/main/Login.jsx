@@ -1,20 +1,36 @@
 import whiteLogo from "../../../images/login-logo-white.png";
 import googleIcon from "../../../images/googleLogo.png";
 
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+// Custom hook
+const useAuth = () => {
+  const nav = useNavigate();
+
+  const logOut = () => {
+    localStorage.removeItem("userId");
+    nav("/login");
+  };
+
+  const logIn = (username) => {
+    localStorage.setItem("userId", JSON.stringify(username));
+    nav("/Home");
+  };
+
+  return { logOut, logIn };
+};
+
 const LoginForm = () => {
   // const { state, setters } = useContext(MyStates);
-  const nav = useNavigate();
-  const loc = useLocation();
+  const { logIn } = useAuth();
   const handleSubmit = (e) => {
     e.preventDefault();
     // console.log('user email:', e.target.email.value)
     // console.log('user password:', e.target.password.value)
-    
+
     // Temp storage
     const username = e.target.username.value;
-    localStorage.setItem('userId', JSON.stringify(username));
-    nav("/Home");
+    logIn(username);
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -91,3 +107,4 @@ const Login = () => {
 };
 
 export default Login;
+export { useAuth };
