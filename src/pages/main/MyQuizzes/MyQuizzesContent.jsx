@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { CreateQuizButton, MyButton } from "../../../components/MyButtons";
 import { getQuizzesByUser } from "../../../services/quiz";
+import { Link } from "react-router-dom";
 
 const Quizzes = ({ quiz }) => {
   const { title, questLength } = quiz;
@@ -73,7 +74,25 @@ const MQContent = () => {
           {searchedQuiz.length ? (
             searchedQuiz.map((quiz) => <Quizzes key={quiz.id} quiz={quiz} />)
           ) : (
-            <h1 className="mx-auto text-green-700">No quizzes here...</h1>
+            <div className="flex flex-col justify-center w-full gap-4 text-center text-gray-500">
+              <h1 className="mx-auto mb-6 text-green-700">
+                You haven't made any quizzes yet...
+              </h1>
+              <h2 className="mx-auto ">
+                Click &nbsp;
+                <Link to={"/CreateQuiz"} className="p-0 text-black underline">
+                  here
+                </Link>{" "}
+                to create a new quiz
+              </h2>
+              or
+              <Link
+                to={"/quizz_me"}
+                className="px-3 py-1 text-white bg-green-600 rounded-2xl hover:bg-opacity-80 hover:outline outline-4 outline-white"
+              >
+                View to other's Quizzes
+              </Link>
+            </div>
           )}
         </div>
       )}
